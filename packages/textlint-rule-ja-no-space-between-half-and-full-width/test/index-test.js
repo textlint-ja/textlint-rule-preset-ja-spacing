@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import TextLintTester from "textlint-tester";
-import rule from "../src/textlint-rule-ja-no-space-between-half-and-full-width";
+import rule from "../src/index";
 var tester = new TextLintTester();
 tester.run("全角文字と半角文字の間", rule, {
     valid: [

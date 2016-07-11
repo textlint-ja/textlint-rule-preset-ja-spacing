@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import TextLintTester from "textlint-tester";
-import rule from "../src/textlint-rule-ja-space-around-code";
+import rule from "../src/index";
 var tester = new TextLintTester();
 tester.run("InlineCode周りのスペース", rule, {
     valid: [
