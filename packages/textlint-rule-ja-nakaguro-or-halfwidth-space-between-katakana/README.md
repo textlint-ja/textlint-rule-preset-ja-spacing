@@ -1,6 +1,10 @@
 # textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana
 
 カタカナ語間の区切り文字についてのtextlintルール
+カタカナ語間は中黒または半角スペースを用いてカタカナ語を区切ります。
+
+    OK: インターフェース・ブラウザ
+    NG: インターフェース　ブラウザ
 
 ## Install
 

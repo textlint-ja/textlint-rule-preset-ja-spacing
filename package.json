@@ -6,6 +6,8 @@
     "mocha": "^2.5.3"
   },
   "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "postinstall": "npm run bootstrap",
     "test": "mocha 'packages/*/test/*-test.js'"
   }
 }

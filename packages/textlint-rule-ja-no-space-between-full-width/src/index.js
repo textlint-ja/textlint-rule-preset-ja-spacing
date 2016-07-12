@@ -2,7 +2,7 @@
 "use strict";
 /*
  全角文字と半角文字の間
- 原則として、全角文字と半角文字の間にスペースを入れません。
+ 全角文字どうしの間にスペースを入れません。
  ただしカタカナ複合語の場合を除きます。
  */
 import {RuleHelper} from "textlint-rule-helper";

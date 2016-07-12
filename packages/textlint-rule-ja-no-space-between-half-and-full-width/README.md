@@ -2,6 +2,11 @@
 
 半角文字と全角文字のスペースについてのtextlintルール
 
+全角文字と半角文字の間にスペースを入れません。
+
+    OK: これはUnicode
+    NG: これは Unicode
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):

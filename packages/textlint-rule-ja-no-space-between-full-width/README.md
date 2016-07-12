@@ -2,6 +2,12 @@
 
 全角文字同士の間のスペースについてのtextlintルール
 
+全角文字どうしの間にスペースを入れません。
+ただしカタカナ複合語の場合を除きます。
+
+    OK: これは大丈夫。
+    NG: これは ダメ
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):

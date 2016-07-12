@@ -13,16 +13,19 @@
 
 インラインコードの周りをスペースで囲むかどうかを決めるルール
 
+### [textlint-rule-ja-no-space-between-full-width](./packages/textlint-rule-ja-no-space-between-full-width)
+
+全角文字同士の間のスペースについてのtextlintルール
+全角文字どうしの間にスペースを入れません。
+
+### [textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana](packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana)
+
+全角文字どうしの間にスペースを入れません。
+ただしカタカナ複合語の場合を除きます。
+
+
+
 ### Pull Request待ちのルール
-
-全角文字同士の間のスペース
-
-    https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.1.2.js
-
-カタカナ語間のスペース
-
-    半角 または 中黒
-    https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.2.js
 
 かっこの外側、内側のスペース
 
@@ -35,6 +38,19 @@
 疑問符後のスペース
 
     https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.2.js
+
+## 開発フロー
+
+1. [packages](./packages)に作成ルール名でディレクトリを作成
+2. 作成したディレクトリに通常のnpmモジュール作成と同一のフローで作成
+
+その後、`packages`全体について操作した場合は`lerna`を使う。
+
+- [Lerna · A tool for managing JavaScript projects with multiple packages.](https://lernajs.io/ "Lerna · A tool for managing JavaScript projects with multiple packages.")
+
+全てのpackagesの`npm install`:
+
+    npm run bootstrap
 
 
 ## Tests
