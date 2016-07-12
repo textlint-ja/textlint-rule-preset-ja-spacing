@@ -1,9 +1,11 @@
 # textlint-rule-spacing
 
 [textlint](https://textlint.github.io/)のスペース関連のmonorepoです。
-全角文字と半角文字の間にスペースをいれるかどうかなどのルールを提供します。
 
-## ルール
+日本語周りにおけるスペースの有無を決定するtextlintルールプリセットを提供します。
+それぞれのルールは個別のモジュールであるため、必要なルールのみをインストールすることも可能です。
+
+## ルール一覧
 
 ### [textlint-rule-ja-no-space-between-half-and-full-width](./packages/textlint-rule-ja-no-space-between-half-and-full-width)
 
