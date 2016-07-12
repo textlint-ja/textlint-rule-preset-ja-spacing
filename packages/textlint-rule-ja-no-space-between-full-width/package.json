@@ -1,5 +1,5 @@
 {
-  "name": "textlint-rule-ja-no-space-between-half-and-full-width",
+  "name": "textlint-rule-ja-no-space-between-full-width",
   "version": "1.0.0",
   "description": "半角文字と全角文字のスペースについてのtextlintルール",
   "main": "lib/index.js",
@@ -9,10 +9,10 @@
   },
   "author": "azu",
   "email": "azuciao@gmail.com",
-  "homepage": "https://github.com/extlint-ja/textlint-rule-spacing",
+  "homepage": "https://github.com/textlint-ja/textlint-rule-spacing",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/extlint-ja/textlint-rule-spacing/issues"
+    "url": "https://github.com/textlint-ja/textlint-rule-spacing/issues"
   },
   "scripts": {
     "build": "NODE_ENV=production babel src --out-dir lib --source-maps",

@@ -29,7 +29,7 @@ textlint --rule ja-no-space-between-full-and-full-width README.md
 
 ## Changelog
 
-See [Releases page](https://github.com/extlint-ja/textlint-rule-spacing/releases).
+See [Releases page](https://github.com/textlint-ja/textlint-rule-spacing/releases).
 
 ## Running tests
 
@@ -41,7 +41,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/extlint-ja/textlint-rule-spacing/issues).
+For bugs and feature requests, [please create an issue](https://github.com/textlint-ja/textlint-rule-spacing/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
