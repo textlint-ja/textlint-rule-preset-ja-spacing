@@ -15,14 +15,13 @@
 
 ### [textlint-rule-ja-no-space-between-full-width](./packages/textlint-rule-ja-no-space-between-full-width)
 
-全角文字同士の間のスペースについてのtextlintルール
+全角文字同士の間のスペースについてのtextlintルール。
 全角文字どうしの間にスペースを入れません。
 
 ### [textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana](packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana)
 
-全角文字どうしの間にスペースを入れません。
-ただしカタカナ複合語の場合を除きます。
-
+カタカナ語間の区切り文字についてのtextlintルール。
+カタカナ語間は中黒または半角スペースを用いてカタカナ語を区切ります。
 
 
 ### Pull Request待ちのルール
