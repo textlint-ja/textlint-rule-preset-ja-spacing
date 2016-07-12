@@ -1,12 +1,12 @@
-# textlint-rule-ja-no-space-between-half-and-full-width
+# textlint-rule-ja-no-space-between-full-and-full-width
 
-半角文字と全角文字のスペースについてのtextlintルール
+全角文字同士の間のスペースについてのtextlintルール
 
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install textlint-rule-ja-no-space-between-half-and-full-width
+    npm install textlint-rule-ja-no-space-between-full-and-full-width
 
 ## Usage
 
@@ -15,7 +15,7 @@ Via `.textlintrc`(Recommended)
 ```json
 {
     "rules": {
-        "ja-no-space-between-half-and-full-width": true
+        "ja-no-space-between-full-and-full-width": true
     }
 }
 ```
@@ -23,7 +23,7 @@ Via `.textlintrc`(Recommended)
 Via CLI
 
 ```
-textlint --rule ja-no-space-between-half-and-full-width README.md
+textlint --rule ja-no-space-between-full-and-full-width README.md
 ```
 
 

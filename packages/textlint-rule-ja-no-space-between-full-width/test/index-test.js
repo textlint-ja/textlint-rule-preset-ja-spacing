@@ -3,37 +3,32 @@
 import TextLintTester from "textlint-tester";
 import rule from "../src/index";
 var tester = new TextLintTester();
-tester.run("全角文字と半角文字の間", rule, {
+tester.run("全角文字どうし", rule, {
     valid: [
-        "JTF標準",
+        "これは正解",
+        "This is 大丈夫",
         "This is a pen.",
-        "1. `./*.*`にマッチするファイルを取得 = Readable Stream",
-        `[CONTRIBUTING.md](./CONTRIBUTING.md)に、書籍で扱うべきプラグインアーキテクチャのProposalの書き方や
-Pull Request、コミットのやりかたなどが書かれています。`
+        "ユーザー インターフェース"//カタカナは例外
     ],
     invalid: [
         {
-            text: "JTF 標準",
-            output: "JTF標準",
+            text: "これは ダメ",
+            output: "これはダメ",
             errors: [
                 {
-                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    message: "原則として、全角文字どうしの間にスペースを入れません。",
                     column: 4
                 }
             ]
         },
         {
-            text: "これは Unicode",
-            output: "これはUnicode",
+            text: "これは どういうこと？",
+            output: "これはどういうこと？",
             errors: [
-                {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
-            ]
-        },
-        {
-            text: "これは　Unicode",
-            output: "これはUnicode",
-            errors: [
-                {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
+                {
+                    message: "原則として、全角文字どうしの間にスペースを入れません。",
+                    column: 4
+                }
             ]
         }
     ]

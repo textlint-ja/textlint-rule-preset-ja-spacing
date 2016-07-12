@@ -1,7 +1,7 @@
 {
-  "name": "textlint-rule-ja-no-space-between-full-and-full-width",
+  "name": "textlint-rule-ja-no-space-between-half-and-full-width",
   "version": "1.0.0",
-  "description": "全角文字同士の間のスペースについてのtextlintルール",
+  "description": "半角文字と全角文字のスペースについてのtextlintルール",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "match-index": "^1.0.1",
-    "regx": "^1.0.4",
     "textlint-rule-helper": "^2.0.0"
   }
 }
