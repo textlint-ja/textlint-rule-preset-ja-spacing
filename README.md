@@ -31,25 +31,6 @@ textlint --rule preset-ja-spacing" README.md
 ```
 
 
-## Options
-
-デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
-
-次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
-
-```json
-{
-    "rules": {
-        "preset-ja-spacing": {
-            "ja-space-around-code": {
-                "before": false,
-                "after": false
-            }
-        }
-    }
-}
-```
-
 それぞれのルールは個別のモジュールであるため、必要なルールのみをインストールすることも可能です。
 
 ## ルール一覧
@@ -85,6 +66,25 @@ textlint --rule preset-ja-spacing" README.md
 
 文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
 文中に疑問符を使用する場合はスペースを挿入しません。
+
+## デフォルト設定
+
+デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+
+次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
+
+```json
+{
+    "rules": {
+        "preset-ja-spacing": {
+            "ja-space-around-code": {
+                "before": false,
+                "after": false
+            }
+        }
+    }
+}
+```
 
 ## 関連
 
