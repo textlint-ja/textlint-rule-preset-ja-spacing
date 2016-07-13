@@ -1,4 +1,4 @@
-# textlint-rule-spacing
+# textlint-rule-spacing [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-spacing.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-spacing)
 
 [textlint](https://textlint.github.io/)のスペース関連のmonorepoです。
 
