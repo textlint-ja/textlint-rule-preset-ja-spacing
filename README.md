@@ -4,6 +4,52 @@
 
 日本語周りにおけるスペースの有無を決定するtextlintルールプリセットを提供します。
 
+- [textlint-rule-preset-ja-spacing](./packages/textlint-rule-preset-ja-spacing)
+
+## Install
+
+Install with [npm](https://www.npmjs.com/):
+
+    npm install textlint-rule-preset-ja-spacing
+
+## Usage
+
+Via `.textlintrc`(Recommended)
+
+```json
+{
+    "rules": {
+        "preset-ja-spacing": true
+    }
+}
+```
+
+Via CLI
+
+```
+textlint --rule preset-ja-spacing" README.md
+```
+
+
+## Options
+
+デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+
+次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
+
+```json
+{
+    "rules": {
+        "preset-ja-spacing": {
+            "ja-space-around-code": {
+                "before": false,
+                "after": false
+            }
+        }
+    }
+}
+```
+
 それぞれのルールは個別のモジュールであるため、必要なルールのみをインストールすることも可能です。
 
 ## ルール一覧
