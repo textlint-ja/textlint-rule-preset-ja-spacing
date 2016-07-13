@@ -3,6 +3,7 @@
 [textlint](https://textlint.github.io/)のスペース関連のmonorepoです。
 
 日本語周りにおけるスペースの有無を決定するtextlintルールプリセットを提供します。
+
 それぞれのルールは個別のモジュールであるため、必要なルールのみをインストールすることも可能です。
 
 ## ルール一覧
@@ -38,6 +39,14 @@
 
 文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
 文中に疑問符を使用する場合はスペースを挿入しません。
+
+## 関連
+
+JTFスタイルガイドに含まれているルールと大部分は共通しています。
+以下のプリセットを利用している場合は重複するルールがあります。
+
+- [JTF日本語標準スタイルガイド（翻訳用）](https://www.jtf.jp/jp/style_guide/styleguide_top.html "JTF日本語標準スタイルガイド（翻訳用）")
+- [azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.](https://github.com/azu/textlint-rule-preset-JTF-style "azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.")
 
 ## 開発フロー
 
