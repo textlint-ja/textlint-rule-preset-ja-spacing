@@ -2,6 +2,14 @@
 
 インラインコードの周りをスペースで囲むかどうかを決めるtextlintルール
 
+インラインコードとは[TxtAST](https://github.com/textlint/textlint/blob/master/docs/txtnode.md "TxtAST")の`Code` nodeのことです。
+
+このルールでは、インラインコードの前後が日本語である場合に半角スペースを入れるかを決定します。
+オプションでスペースの有無を決定できます。
+
+    `code` と日本語の間はスペースを空ける
+    `code`と日本語の間はスペースを空けない
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
@@ -26,6 +34,28 @@ Via CLI
 textlint --rule ja-space-around-code README.md
 ```
 
+
+## Options
+
+- `before`: `boolean`
+    - デフォルト: `false`
+    - `true`なら、`Code`の前に半角スペースを入れる
+- `after`: `boolean`
+    - デフォルト: `false`
+    - `true`なら、`Code`の後に半角スペースを入れる
+
+デフォルト値は次のようになります。
+
+```json
+{
+    "rules": {
+        "ja-space-around-code": {
+            "before": false,
+            "after": false
+        }
+    }
+}
+```
 
 ## Changelog
 
