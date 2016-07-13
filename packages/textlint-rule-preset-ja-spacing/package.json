@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "textlint-rule-spacingのルールプリセット",
   "main": "lib/index.js",
+  "files": [
+    "src/",
+    "lib/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/textlint-ja/textlint-rule-spacing.git"

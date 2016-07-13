@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "半角文字と全角文字のスペースについてのtextlintルール",
   "main": "lib/index.js",
+  "files": [
+    "src/",
+    "lib/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/textlint-ja/textlint-rule-spacing.git"

@@ -29,7 +29,7 @@ Via `.textlintrc`(Recommended)
 Via CLI
 
 ```
-textlint --rule preset-ja-spacing" README.md
+textlint --preset ja-spacing README.md
 ```
 
 

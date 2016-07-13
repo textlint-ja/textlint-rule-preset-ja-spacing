@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "カタカナ語間の区切り文字についてのtextlintルール",
   "main": "lib/index.js",
+  "files": [
+    "src/",
+    "lib/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/textlint-ja/textlint-rule-spacing.git"

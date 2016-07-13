@@ -32,7 +32,7 @@ tester.run("かっこ類と隣接する文字の間のスペースの有無", ru
                     column: 4
                 }
             ]
-        },{
+        }, {
             text: `TEST
 
 - TODO
