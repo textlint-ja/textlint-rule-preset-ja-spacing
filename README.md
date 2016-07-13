@@ -13,7 +13,7 @@
 
 ### [textlint-rule-ja-space-around-code](./packages/textlint-rule-ja-space-around-code)
 
-インラインコードの周りにスペースでを入れるかを決めるルール
+インラインコードの周りにスペースを入れるかを決めるルール
 
 ### [textlint-rule-ja-no-space-between-full-width](./packages/textlint-rule-ja-no-space-between-full-width)
 
