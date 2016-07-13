@@ -13,7 +13,7 @@
 
 ### [textlint-rule-ja-space-around-code](./packages/textlint-rule-ja-space-around-code)
 
-インラインコードの周りをスペースで囲むかどうかを決めるルール
+インラインコードの周りにスペースでを入れるかを決めるルール
 
 ### [textlint-rule-ja-no-space-between-full-width](./packages/textlint-rule-ja-no-space-between-full-width)
 
@@ -25,27 +25,26 @@
 カタカナ語間の区切り文字についてのtextlintルール。
 カタカナ語間は中黒または半角スペースを用いてカタカナ語を区切ります。
 
+### [textlint-rule-ja-no-space-around-parentheses](packages/textlint-rule-ja-no-space-around-parentheses)
 
-### Pull Request待ちのルール
+かっこの外側、内側ともにスペースを入れないようにするルール
 
-かっこの外側、内側のスペース
+### [textlint-rule-ja-space-after-exclamation](packages/textlint-rule-ja-space-after-exclamation)
 
-    https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.3.js
+文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
+文中に感嘆符を使用する場合はスペースを挿入しません
 
-感嘆符後のスペース
+### [textlint-rule-ja-space-after-question](packages/textlint-rule-ja-space-after-question)
 
-    https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.1.js
-
-疑問符後のスペース
-
-    https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.2.js
+文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
+文中に疑問符を使用する場合はスペースを挿入しません。
 
 ## 開発フロー
 
 1. [packages](./packages)に作成ルール名でディレクトリを作成
 2. 作成したディレクトリに通常のnpmモジュール作成と同一のフローで作成
 
-その後、`packages`全体について操作した場合は`lerna`を使う。
+その後、`packages`全体について操作したい場合は`lerna`を使います。
 
 - [Lerna · A tool for managing JavaScript projects with multiple packages.](https://lernajs.io/ "Lerna · A tool for managing JavaScript projects with multiple packages.")
 
