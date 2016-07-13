@@ -6,7 +6,7 @@
  */
 import {RuleHelper} from "textlint-rule-helper";
 import {matchCaptureGroupAll} from "match-index";
-export default function (context) {
+module.exports = function(context) {
     const {Syntax, RuleError, report, getSource} = context;
     const helper = new RuleHelper();
     return {
@@ -28,4 +28,4 @@ export default function (context) {
 
         }
     };
-}
+};
