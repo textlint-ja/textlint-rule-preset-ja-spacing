@@ -1,4 +1,4 @@
-# textlint-rule-ja-no-space-between-full-and-full-width
+# textlint-rule-ja-no-space-between-full-width
 
 全角文字同士の間のスペースについてのtextlintルール
 
@@ -12,7 +12,7 @@
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install textlint-rule-ja-no-space-between-full-and-full-width
+    npm install textlint-rule-ja-no-space-between-full-width
 
 ## Usage
 
