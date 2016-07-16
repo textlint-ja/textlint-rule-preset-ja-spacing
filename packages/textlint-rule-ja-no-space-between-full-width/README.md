@@ -21,7 +21,7 @@ Via `.textlintrc`(Recommended)
 ```json
 {
     "rules": {
-        "ja-no-space-between-full-and-full-width": true
+        "ja-no-space-between-full-width": true
     }
 }
 ```
@@ -29,7 +29,7 @@ Via `.textlintrc`(Recommended)
 Via CLI
 
 ```
-textlint --rule ja-no-space-between-full-and-full-width README.md
+textlint --rule ja-no-space-between-full-width README.md
 ```
 
 
