@@ -35,7 +35,14 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "always"
             }
-        }
+        },
+        // ignore
+        {
+            text: "# JTF 標準",
+            options: {
+                space: "never"
+            },
+        },
     ],
     invalid: [
         {

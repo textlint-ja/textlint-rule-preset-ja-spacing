@@ -47,7 +47,9 @@ function reporter(context, options = {}) {
     };
     return {
         [Syntax.Str](node){
-            if (helper.isChildNode(node, [Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis])) {
+            if (helper.isChildNode(node, [
+                    Syntax.Header, Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis
+                ])) {
                 return;
             }
             const text = getSource(node);
