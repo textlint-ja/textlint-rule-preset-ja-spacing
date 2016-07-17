@@ -14,7 +14,9 @@ module.exports = {
         "ja-nakaguro-or-halfwidth-space-between-katakana": true,
         "ja-no-space-around-parentheses": true,
         "ja-no-space-between-full-width": true,
-        "ja-space-between-half-and-full-width": true,
+        "ja-space-between-half-and-full-width": {
+            "space": "never"
+        },
         "ja-space-after-exclamation": true,
         "ja-space-after-question": true,
         "ja-space-around-code": false,
