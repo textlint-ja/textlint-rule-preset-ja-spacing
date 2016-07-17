@@ -35,9 +35,9 @@ textlint --preset preset-ja-spacing README.md
 
 ## ルール一覧
 
-### [textlint-rule-ja-no-space-between-half-and-full-width](./packages/textlint-rule-ja-no-space-between-half-and-full-width)
+### [textlint-rule-ja-space-between-half-and-full-width](./packages/textlint-rule-ja-space-between-half-and-full-width)
 
-半角文字と全角文字の間にスペースを入れないようにするルール
+半角文字と全角文字の間にスペースに関するルール
 
 ### [textlint-rule-ja-space-around-code](./packages/textlint-rule-ja-space-around-code)
 
@@ -69,7 +69,27 @@ textlint --preset preset-ja-spacing README.md
 
 ## デフォルト設定
 
-デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+デフォルトでは、次のような設定になっています。
+
+```json
+{
+    "rules": {
+        "preset-ja-spacing": {
+             "ja-nakaguro-or-halfwidth-space-between-katakana": true,
+             "ja-no-space-around-parentheses": true,
+             "ja-no-space-between-full-width": true,
+             "ja-space-between-half-and-full-width": {
+                 "space": "never"
+             },
+             "ja-space-after-exclamation": true,
+             "ja-space-after-question": true,
+             "ja-space-around-code": false,
+         }
+    }
+}
+```
+
+またデフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
 
 次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
 
