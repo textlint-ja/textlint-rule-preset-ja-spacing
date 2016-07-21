@@ -1,4 +1,5 @@
-# textlint-rule-preset-ja-spacing
+# textlint-rule-preset-ja-spacing [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
+
 
 日本語周りにおけるスペースの有無を決定するtextlintルールプリセットです。
 

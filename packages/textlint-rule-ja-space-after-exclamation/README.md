@@ -32,6 +32,11 @@ Via CLI
 textlint --rule ja-space-after-exclamation README.md
 ```
 
+## Fixable
+
+[![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
+
+`textlint --fix`の自動修正に対応しています。
 
 ## Changelog
 

@@ -35,6 +35,11 @@ Via CLI
 textlint --rule ja-no-space-around-parentheses README.md
 ```
 
+## Fixable
+
+[![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
+
+`textlint --fix`の自動修正に対応しています。
 
 ## Changelog
 

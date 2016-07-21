@@ -1,4 +1,4 @@
-# textlint-rule-ja-space-around-code
+# textlint-rule-ja-space-around-code [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
 
 インラインコードの周りをスペースで囲むかどうかを決めるtextlintルール
 
@@ -56,6 +56,12 @@ textlint --rule ja-space-around-code README.md
     }
 }
 ```
+
+## Fixable
+
+[![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
+
+`textlint --fix`の自動修正に対応しています。
 
 ## Changelog
 
