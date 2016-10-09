@@ -5,8 +5,9 @@ import rule from "../src/index";
 var tester = new TextLintTester();
 tester.run("全角文字と半角文字の間", rule, {
     valid: [
-        // never
+        // デフォルト: never && exceptPunctuation
         "JTF標準",
+        "これも、OK。",
         {
             text: "JTF標準",
             options: {
@@ -42,6 +43,37 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "never"
             },
+        },
+        // except
+        {
+            text: "Always これは、Exception。",
+            options: {
+                space: "always",
+                exceptPunctuation: true
+            },
+        },
+        // 入れても良い
+        {
+            text: "Always これは 、 Exception 。",
+            options: {
+                space: "always",
+                exceptPunctuation: true
+            },
+        },
+        {
+            text: "Never:これは、 Exception 。",
+            options: {
+                space: "never",
+                exceptPunctuation: true
+            }
+        },
+        // 入れても良い
+        {
+            text: "Never:これは、Exception。",
+            options: {
+                space: "never",
+                exceptPunctuation: true
+            }
         },
     ],
     invalid: [
@@ -82,6 +114,33 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
             ]
         },
+        {
+
+            text: "aaa と bbb 、 ccc と ddd",
+            output: "aaaとbbb 、 cccとddd",
+            options: {
+                space: "never",
+                exceptPunctuation: true
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    column: 4
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    column: 6
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    column: 16
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    column: 18
+                }
+            ]
+        },
         // need space
         {
             text: "JTF標準",
@@ -93,6 +152,24 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 {
                     message: "原則として、全角文字と半角文字の間にスペースを入れます。",
                     column: 3
+                }
+            ]
+        },
+        {
+            text: "aaa、bbb",
+            output: "aaa 、 bbb",
+            options: {
+                space: "always",
+                exceptPunctuation: false
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 4
                 }
             ]
         },
@@ -123,6 +200,33 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 {
                     message: "原則として、全角文字と半角文字の間にスペースを入れます。",
                     column: 11
+                }
+            ]
+        },
+        // with option
+        {
+            text: "aaaとbbb、cccとddd",
+            output: "aaa と bbb、ccc と ddd",
+            options: {
+                space: "always",
+                exceptPunctuation: true
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 4
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 11
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 12
                 }
             ]
         },

@@ -6,20 +6,49 @@ const assert = require("assert");
  */
 import {RuleHelper} from "textlint-rule-helper";
 import {matchCaptureGroupAll} from "match-index";
+const PunctuationRegExp = /[。、]/;
 const defaultOptions = {
     // スペースを入れるかどうか
     // "never" or "always"
-    "space": "never"
+    space: "never",
+    // [。、,.]を例外とするかどうか
+    exceptPunctuation: true
 };
 function reporter(context, options = {}) {
     const {Syntax, RuleError, report, fixer, getSource} = context;
     const helper = new RuleHelper();
     const spaceOption = options.space || defaultOptions.space;
+    const exceptPunctuation = options.exceptPunctuation !== undefined
+        ? options.exceptPunctuation
+        : defaultOptions.exceptPunctuation;
     assert(spaceOption === "always" || spaceOption === "never", `"space" options should be "always" or "never".`);
-    // アルファベットと全角の間はスペースを入れない
+    /**
+     * `text`を対象に例外オプションを取り除くfilter関数を返す
+     * @param {string} text テスト対象のテキスト全体
+     * @param {number} padding +1 or -1
+     * @returns {function(*, *)}
+     */
+    const createFilter = (text, padding) => {
+        /**
+         * `exceptPunctuation`で指定された例外を取り除く
+         * @param {Object} match
+         * @returns {boolean}
+         */
+        return (match) => {
+            const targetChar = text[match.index + padding];
+            if (!targetChar) {
+                return false;
+            }
+            if (exceptPunctuation && PunctuationRegExp.test(targetChar)) {
+                return false;
+            }
+            return true;
+        }
+    };
+    // Never: アルファベットと全角の間はスペースを入れない
     const noSpaceBetween = (node, text) => {
-        const betweenHanAndZen = matchCaptureGroupAll(text, /[A-Za-z0-9]([ 　])(?:[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
-        const betweenZenAndHan = matchCaptureGroupAll(text, /(?:[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])([ 　])[A-Za-z0-9]/);
+        const betweenHanAndZen = matchCaptureGroupAll(text, /[A-Za-z0-9]([ 　])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
+        const betweenZenAndHan = matchCaptureGroupAll(text, /(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])([ 　])[A-Za-z0-9]/);
         const reportMatch = (match) => {
             const {index} = match;
             report(node, new RuleError("原則として、全角文字と半角文字の間にスペースを入れません。", {
@@ -27,14 +56,14 @@ function reporter(context, options = {}) {
                 fix: fixer.replaceTextRange([index, index + 1], "")
             }));
         };
-        betweenHanAndZen.forEach(reportMatch);
-        betweenZenAndHan.forEach(reportMatch);
+        betweenHanAndZen.filter(createFilter(text, 1)).forEach(reportMatch);
+        betweenZenAndHan.filter(createFilter(text, -1)).forEach(reportMatch);
     };
 
-    // アルファベットと全角の間はスペースを入れる
+    // Always: アルファベットと全角の間はスペースを入れる
     const needSpaceBetween = (node, text) => {
-        const betweenHanAndZen = matchCaptureGroupAll(text, /[A-Za-z0-9]([^ 　])(?:[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
-        const betweenZenAndHan = matchCaptureGroupAll(text, /(?:[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])([^ 　])[A-Za-z0-9]/);
+        const betweenHanAndZen = matchCaptureGroupAll(text, /([A-Za-z0-9])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
+        const betweenZenAndHan = matchCaptureGroupAll(text, /([、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])[A-Za-z0-9]/);
         const reportMatch = (match) => {
             const {index} = match;
             report(node, new RuleError("原則として、全角文字と半角文字の間にスペースを入れます。", {
@@ -42,14 +71,15 @@ function reporter(context, options = {}) {
                 fix: fixer.replaceTextRange([index + 1, index + 1], " ")
             }));
         };
-        betweenHanAndZen.forEach(reportMatch);
-        betweenZenAndHan.forEach(reportMatch);
+        betweenHanAndZen.filter(createFilter(text, 1)).forEach(reportMatch);
+        betweenZenAndHan.filter(createFilter(text, 0)).forEach(reportMatch);
     };
     return {
         [Syntax.Str](node){
-            if (helper.isChildNode(node, [
-                    Syntax.Header, Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis
-                ])) {
+            const isIgnoredParentNode = helper.isChildNode(node, [
+                Syntax.Header, Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis
+            ]);
+            if (isIgnoredParentNode) {
                 return;
             }
             const text = getSource(node);
