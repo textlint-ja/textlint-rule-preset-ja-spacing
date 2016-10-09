@@ -9,6 +9,10 @@
     OK: これはUnicode
     NG: これは Unicode
 
+全角文字には、句読点（、。）も含まれていますがデフォルトでは、`exceptPunctuation: true`であるため無視されます。
+
+    OK: これも、Unicode。
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
@@ -41,6 +45,9 @@ textlint --rule ja-space-between-half-and-full-width README.md
 - `space`: `"always"` || `"never"`
     - デフォルト: `"never"`
     - スペースを常に 入れる(`"always"`) or 入れない(`"never"`)
+- `exceptPunctuation`: `boolean`
+    - デフォルト: `true`
+    - 句読点（、。）を例外として扱うかどうか
     
 ```json
 {
@@ -51,6 +58,25 @@ textlint --rule ja-space-between-half-and-full-width README.md
     }
 }
 ```   
+
+`exceptPunctuation: true`とした場合は、句読点に関しては無視されるようになります。
+
+スペースは必須だが、`日本語、[alphabet]。`は許可する
+
+        text: "これは、Exception。",
+        options: {
+            space: "always",
+            exceptPunctuation: true
+        }
+
+スペースは不要だが、`日本語、 [alphabet] 。`は許可する。
+
+        text: "これは、 Exception 。",
+        options: {
+            space: "never",
+            exceptPunctuation: true
+        }
+        
 
 ## Changelog
 
