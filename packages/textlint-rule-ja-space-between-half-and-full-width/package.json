@@ -25,7 +25,8 @@
     "test": "mocha"
   },
   "keywords": [
-    "textlint"
+    "textlint",
+    "textlintrule"
   ],
   "devDependencies": {
     "babel-cli": "^6.0.0",
