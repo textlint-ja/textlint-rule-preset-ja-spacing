@@ -9,5 +9,9 @@
     "bootstrap": "lerna bootstrap",
     "postinstall": "npm run bootstrap",
     "test": "mocha 'packages/*/test/*-test.js'"
-  }
+  },
+  "keywords": [
+    "",
+    "textlintrule"
+  ]
 }
