@@ -8,6 +8,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "postinstall": "npm run bootstrap",
+    "publish": "lerna publish",
     "test": "mocha 'packages/*/test/*-test.js'"
   },
   "keywords": [
