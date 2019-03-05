@@ -11,7 +11,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "postinstall": "yarn run bootstrap",
+    "postinstall": "yarn run bootstrap && yarn run build",
     "build": "lerna run build",
     "test": "lerna run test",
     "versionup": "lerna version --conventional-commits --changelog-preset=angular-all",
