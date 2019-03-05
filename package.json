@@ -1,17 +1,29 @@
 {
-  "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "babel-register": "^6.9.0",
-    "lerna": "2.0.0-beta.24",
-    "mocha": "^3.1.0"
+  "name": "textlint-rule-spacing",
+  "private": true,
+  "keywords": [
+    "textlintrule"
+  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "postinstall": "npm run bootstrap",
-    "publish": "lerna publish",
-    "test": "mocha 'packages/*/test/*-test.js'"
+    "postinstall": "yarn run bootstrap",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "versionup": "lerna version --conventional-commits --changelog-preset=angular-all",
+    "versionup:patch": "lerna version patch --conventional-commits --changelog-preset=angular-all",
+    "versionup:minor": "lerna version minor --conventional-commits --changelog-preset=angular-all",
+    "versionup:major": "lerna version major --conventional-commits --changelog-preset=angular-all",
+    "release": "lerna publish from-package"
   },
-  "keywords": [
-    "textlintrule"
-  ]
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.9.0",
+    "lerna": "^3.13.1",
+    "mocha": "^6.0.2"
+  }
 }
