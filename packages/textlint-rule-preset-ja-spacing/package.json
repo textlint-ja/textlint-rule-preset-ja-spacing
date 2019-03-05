@@ -2,10 +2,9 @@
   "name": "textlint-rule-preset-ja-spacing",
   "version": "2.0.1",
   "description": "textlint-rule-spacingのルールプリセット",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "files": [
-    "src/",
-    "lib/"
+    "src/"
   ],
   "repository": {
     "type": "git",
@@ -19,17 +18,14 @@
     "url": "https://github.com/textlint-ja/textlint-rule-spacing/issues"
   },
   "scripts": {
-    "build": "textlint-scripts build",
-    "watch": "textlint-scripts build --watch",
-    "prepublish": "npm run --if-present build",
-    "test": "textlint-scripts test"
+    "test": "mocha test/"
   },
   "keywords": [
     "textlint",
     "textlintrule"
   ],
   "devDependencies": {
-    "textlint-scripts": "^2.1.0"
+    "mocha": "^6.0.2"
   },
   "dependencies": {
     "textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana": "^2.0.1",
