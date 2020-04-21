@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
         node_version: [10, 12]
     steps:
       - name: checkout
