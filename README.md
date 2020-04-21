@@ -1,4 +1,4 @@
-# textlint-rule-spacing [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-spacing.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-spacing)
+# textlint-rule-preset-ja-spacing [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-preset-ja-spacing.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-preset-ja-spacing)
 
 [textlint](https://textlint.github.io/)のスペース関連のmonorepoです。
 
@@ -90,7 +90,7 @@ textlint --preset preset-ja-spacing README.md
 }
 ```
 
-またデフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+またデフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
 
 次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
 

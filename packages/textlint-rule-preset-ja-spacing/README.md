@@ -5,7 +5,7 @@
 
 含まれているルールに関しては以下を参照してください。
 
-- [textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集](https://github.com/textlint-ja/textlint-rule-spacing "textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集")
+- [textlint-ja/textlint-rule-preset-ja-spacing: スペース周りのスタイルを扱うtextlintルール集](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing "textlint-ja/textlint-rule-preset-ja-spacing: スペース周りのスタイルを扱うtextlintルール集")
 
 それぞれのルールは個別のモジュールであるため、必要なルールのみをインストールすることも可能です。
 
@@ -36,7 +36,7 @@ textlint --preset ja-spacing README.md
 
 ## Options
 
-デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
 
 次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
 
@@ -55,7 +55,7 @@ textlint --preset ja-spacing README.md
 
 ## Changelog
 
-See [Releases page](https://github.com/textlint-ja/textlint-rule-spacing/releases).
+See [Releases page](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/releases).
 
 ## Running tests
 
@@ -67,7 +67,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/textlint-ja/textlint-rule-spacing/issues).
+For bugs and feature requests, [please create an issue](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

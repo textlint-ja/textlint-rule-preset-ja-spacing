@@ -9,14 +9,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/textlint-ja/textlint-rule-spacing.git"
+    "url": "git+https://github.com/textlint-ja/textlint-rule-preset-ja-spacing.git"
   },
   "author": "azu",
   "email": "azuciao@gmail.com",
-  "homepage": "https://github.com/extlint-ja/textlint-rule-spacing",
+  "homepage": "https://github.com/extlint-ja/textlint-rule-preset-ja-spacing",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/extlint-ja/textlint-rule-spacing/issues"
+    "url": "https://github.com/extlint-ja/textlint-rule-preset-ja-spacing/issues"
   },
   "scripts": {
     "build": "NODE_ENV=production babel src --out-dir lib --source-maps",
