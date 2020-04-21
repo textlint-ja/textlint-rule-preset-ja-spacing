@@ -1,4 +1,4 @@
-# textlint-rule-preset-ja-spacing [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-preset-ja-spacing.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-preset-ja-spacing)
+# textlint-rule-preset-ja-spacing [![Actions Status](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/workflows/test/badge.svg)](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/actions?query=workflow%3A"test")
 
 [textlint](https://textlint.github.io/)のスペース関連のmonorepoです。
 
