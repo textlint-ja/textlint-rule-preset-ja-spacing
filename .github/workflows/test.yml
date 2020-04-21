@@ -4,7 +4,7 @@ env:
   CI: true
 jobs:
   test:
-    name: "Test on Node.js ${{ matrix.node_version }} OS: ${{matrix.os}}"
+    name: "Test on Node.js ${{ matrix.node_version }}"
     runs-on: ubuntu-18.04
     strategy:
       matrix:
