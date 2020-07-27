@@ -77,7 +77,7 @@ function reporter(context, options = {}) {
     return {
         [Syntax.Str](node){
             const isIgnoredParentNode = helper.isChildNode(node, [
-                Syntax.Header, Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis
+                Syntax.Header, Syntax.Link, "LinkReference", Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis
             ]);
             if (isIgnoredParentNode) {
                 return;

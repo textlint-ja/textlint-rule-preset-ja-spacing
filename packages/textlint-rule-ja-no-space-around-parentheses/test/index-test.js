@@ -12,7 +12,11 @@ tester.run("かっこ類と隣接する文字の間のスペースの有無", ru
 そのため、特別な実装は必要なく
 「拡張する時は\`calculator.prototype\`の代わりに\`calculator.fn\`を拡張してください」
 というルールがあるだけとも言えます。
-`
+`,
+        "[テスト 「文章」 です](https://example)", // ignore Link
+        "[テスト 「文章」 です][]" +
+        "\n\n" +
+        "[テスト 「文章」 です]: https://example.com" // ignore ReferenceDef
     ],
     invalid: [
         {
