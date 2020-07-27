@@ -1,15 +1,23 @@
 {
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
-    "lerna": "2.0.0-beta.24",
+    "lerna": "3.22.1",
     "mocha": "^3.1.0"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "postinstall": "npm run bootstrap",
-    "publish": "lerna publish",
-    "test": "mocha 'packages/*/test/*-test.js'"
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
+    "versionup": "lerna version --conventional-commits",
+    "versionup:patch": "lerna version patch --conventional-commits",
+    "versionup:minor": "lerna version minor --conventional-commits",
+    "versionup:major": "lerna version major --conventional-commits",
+    "release": "lerna publish from-package"
   },
   "keywords": [
     "textlintrule"

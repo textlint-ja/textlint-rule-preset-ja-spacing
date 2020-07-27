@@ -29,13 +29,13 @@
     "textlintrule"
   ],
   "devDependencies": {
-    "babel-cli": "^6.0.0",
-    "babel-preset-es2015": "^6.0.0",
-    "textlint-tester": "^2.0.0",
-    "mocha": "^2.3.3"
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "mocha": "^2.5.3",
+    "textlint-tester": "^2.2.4"
   },
   "dependencies": {
-    "match-index": "^1.0.1",
-    "textlint-rule-helper": "^2.0.0"
+    "match-index": "^1.0.3",
+    "textlint-rule-helper": "^2.1.1"
   }
 }
