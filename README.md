@@ -122,18 +122,23 @@ JTFスタイルガイドに含まれているルールと大部分は共通し�
 
 その後、`packages`全体について操作したい場合は`lerna`を使います。
 
+- [Yarn](https://classic.yarnpkg.com/en/)
 - [Lerna · A tool for managing JavaScript projects with multiple packages.](https://lernajs.io/ "Lerna · A tool for managing JavaScript projects with multiple packages.")
 
-全てのpackagesの`npm install`:
+次のコマンドでmonorepoの依存をインストール。
 
-    npm run bootstrap
+    yarn instlal
+    
+`textlint-rule-preset-ja-spacing`のテストは事前に全てのパッケージのビルドが必要です。
+次のコマンドで全てのパッケージをビルドします。    
 
+    yarn run build
 
 ## Tests
 
 以下のコマンドで全てのルールのテストを実行できます。
 
-    npm i -d && npm test
+    yarn test
 
 ## Contributing
 

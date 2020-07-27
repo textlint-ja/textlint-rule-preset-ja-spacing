@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        node_version: [10, 12]
+        node_version: [10, 12, 14]
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -18,5 +18,7 @@ jobs:
           node_version: ${{ matrix.node_version }}
       - name: Install
         run: yarn install
+      - name: Build
+        run: yarn run build
       - name: Test
         run: yarn test
