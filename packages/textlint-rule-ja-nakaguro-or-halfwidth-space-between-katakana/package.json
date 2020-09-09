@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "カタカナ語間の区切り文字についてのtextlintルール",
   "main": "lib/index.js",
   "files": [
