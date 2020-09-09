@@ -16,7 +16,7 @@ function reporter(context) {
     const helper = new RuleHelper();
     return {
         [Syntax.Str](node){
-            if (helper.isChildNode(node, [Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis])) {
+            if (helper.isChildNode(node, [Syntax.Link, "LinkReference", Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis])) {
                 return;
             }
             const text = getSource(node);
