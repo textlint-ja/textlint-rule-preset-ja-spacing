@@ -26,7 +26,6 @@ function reporter(context) {
                 return;
             }
             const text = getSource(node);
-            console.log(text)
             // 左にスペース
             leftBrackets.forEach(pattern => {
                 matchCaptureGroupAll(text, pattern).forEach(match => {
