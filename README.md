@@ -127,7 +127,7 @@ JTFスタイルガイドに含まれているルールと大部分は共通し�
 
 次のコマンドでmonorepoの依存をインストール。
 
-    yarn instlal
+    yarn install
     
 `textlint-rule-preset-ja-spacing`のテストは事前に全てのパッケージのビルドが必要です。
 次のコマンドで全てのパッケージをビルドします。    
