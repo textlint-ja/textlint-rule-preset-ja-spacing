@@ -1,0 +1,37 @@
+{
+  "name": "textlint-rule-ja-space-around-link",
+  "version": "2.0.2",
+  "description": "リンクの周りをスペースで囲むかどうかを決めるtextlintルール",
+  "main": "lib/index.js",
+  "files": [
+    "src/",
+    "lib/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textlint-ja/textlint-rule-preset-ja-spacing.git"
+  },
+  "author": "0x6b",
+  "homepage": "https://github.com/textlint-ja/textlint-rule-preset-ja-spacing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues"
+  },
+  "scripts": {
+    "build": "textlint-scripts build",
+    "watch": "textlint-scripts build --watch",
+    "prepublish": "npm run --if-present build",
+    "test": "textlint-scripts test"
+  },
+  "keywords": [
+    "textlint",
+    "textlintrule"
+  ],
+  "devDependencies": {
+    "textlint-scripts": "^3.0.0"
+  },
+  "dependencies": {
+    "match-index": "^1.0.1",
+    "textlint-rule-helper": "^2.0.0"
+  }
+}
