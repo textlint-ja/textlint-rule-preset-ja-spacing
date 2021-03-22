@@ -92,7 +92,8 @@ textlint --preset preset-ja-spacing README.md
 
 またデフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
 
-次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
+次のように設定することで、`textlint-rule-ja-space-around-code`のルールを有効にできます。
+ルールのオプションについての詳細は[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)のREADMEを参照してください。
 
 ```json
 {
