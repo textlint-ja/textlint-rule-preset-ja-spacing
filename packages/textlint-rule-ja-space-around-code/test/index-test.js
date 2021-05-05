@@ -94,6 +94,20 @@ tester.run("InlineCode周りのスペース", rule, {
                     column: 10
                 }
             ]
-        }
+        },
+             {
+            text: "これは`code`おかしい",
+            output: "これは`code` おかしい",
+            options: {
+                before: false,
+                after: true
+            },
+            errors: [
+                {
+                    message: "インラインコードの後にスペースを入れてください。",
+                    index: 9
+                }
+            ]
+        },
     ]
 });
