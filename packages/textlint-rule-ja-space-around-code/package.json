@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-space-around-code",
-  "version": "2.0.2",
+  "version": "2.1.1",
   "description": "インラインコードの周りをスペースで囲むかどうかを決めるtextlintルール",
   "main": "lib/index.js",
   "files": [
