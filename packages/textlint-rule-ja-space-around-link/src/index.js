@@ -57,7 +57,7 @@ function reporter(context, options) {
       // InlineCodeの後に文字が存在している時のみチェック
       if (existAfterChar) {
         if (allowAfterSpace) {
-          if (afterChar !== " " && isJapaneseChar(beforeChar)) {
+          if (afterChar !== " " && isJapaneseChar(afterChar)) {
             report(
               node,
               new RuleError("リンクの後にスペースを入れてください。", {

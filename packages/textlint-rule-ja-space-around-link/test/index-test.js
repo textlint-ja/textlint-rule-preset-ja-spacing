@@ -121,6 +121,34 @@ tester.run("Link周りのスペース", rule, {
     },
     {
       text: "これは[README](./README.md)おかしい",
+      output: "これは [README](./README.md)おかしい",
+      options: {
+        before: true,
+        after: false,
+      },
+      errors: [
+        {
+          message: "リンクの前にスペースを入れてください。",
+          column: 3,
+        },
+      ],
+    },
+    {
+      text: "これは[README](./README.md)おかしい",
+      output: "これは[README](./README.md) おかしい",
+      options: {
+        before: false,
+        after: true,
+      },
+      errors: [
+        {
+          message: "リンクの後にスペースを入れてください。",
+          column: 25,
+        },
+      ],
+    },
+    {
+      text: "これは[README](./README.md)おかしい",
       output: "これは [README](./README.md) おかしい",
       options: {
         before: true,
