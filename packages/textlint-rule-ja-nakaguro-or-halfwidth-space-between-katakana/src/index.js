@@ -6,7 +6,7 @@
  */
 import { matchCaptureGroupAll } from "match-index";
 
-module.exports = function (context) {
+export default function (context) {
     const { Syntax, RuleError, report, getSource } = context;
     return {
         [Syntax.Str](node) {
@@ -29,4 +29,4 @@ module.exports = function (context) {
             });
         }
     };
-};
+}

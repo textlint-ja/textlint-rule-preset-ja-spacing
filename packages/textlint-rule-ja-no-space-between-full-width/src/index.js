@@ -42,7 +42,7 @@ function reporter(context) {
         }
     };
 }
-module.exports = {
+export default {
     linter: reporter,
     fixer: reporter
 };

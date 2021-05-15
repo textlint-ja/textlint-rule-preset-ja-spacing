@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-module.exports = {
+export default {
     rules: {
         "ja-nakaguro-or-halfwidth-space-between-katakana": require("textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana"),
         "ja-no-space-around-parentheses": require("textlint-rule-ja-no-space-around-parentheses"),
