@@ -12,7 +12,7 @@ tester.run("全角文字と半角文字の間", rule, {
             text: "JTF標準",
             options: {
                 space: "never"
-            },
+            }
         },
         "This is a pen.",
         "1. `./*.*`にマッチするファイルを取得 = Readable Stream",
@@ -42,7 +42,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             text: "# JTF 標準",
             options: {
                 space: "never"
-            },
+            }
         },
         // except
         {
@@ -50,7 +50,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "always",
                 exceptPunctuation: true
-            },
+            }
         },
         // 入れても良い
         {
@@ -58,7 +58,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "always",
                 exceptPunctuation: true
-            },
+            }
         },
         {
             text: "Never:これは、 Exception 。",
@@ -74,7 +74,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 space: "never",
                 exceptPunctuation: true
             }
-        },
+        }
     ],
     invalid: [
         {
@@ -103,19 +103,14 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "これは Unicode",
             output: "これはUnicode",
-            errors: [
-                {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
-            ]
+            errors: [{ message: "原則として、全角文字と半角文字の間にスペースを入れません。" }]
         },
         {
             text: "これは　Unicode",
             output: "これはUnicode",
-            errors: [
-                {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
-            ]
+            errors: [{ message: "原則として、全角文字と半角文字の間にスペースを入れません。" }]
         },
         {
-
             text: "aaa と bbb 、 ccc と ddd",
             output: "aaaとbbb 、 cccとddd",
             options: {
@@ -229,6 +224,6 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                     column: 12
                 }
             ]
-        },
+        }
     ]
 });

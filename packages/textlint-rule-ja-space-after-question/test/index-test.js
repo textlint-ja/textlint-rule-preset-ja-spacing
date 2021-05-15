@@ -2,6 +2,7 @@
 "use strict";
 import TextLintTester from "textlint-tester";
 import rule from "../src/index";
+
 var tester = new TextLintTester();
 tester.run("疑問符(?)", rule, {
     valid: [

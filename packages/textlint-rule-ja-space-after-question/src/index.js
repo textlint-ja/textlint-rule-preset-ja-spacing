@@ -5,26 +5,27 @@
  文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
  文中に疑問符を使用する場合はスペースを挿入しません。
  */
-import {RuleHelper} from "textlint-rule-helper";
-import {matchCaptureGroupAll} from "match-index";
+import { matchCaptureGroupAll } from "match-index";
 function reporter(context) {
-    const {Syntax, RuleError, report, fixer, getSource} = context;
-    const helper = new RuleHelper();
+    const { Syntax, RuleError, report, fixer, getSource } = context;
     return {
-        [Syntax.Str](node){
-            if (helper.isChildNode(node, [Syntax.Link, "LinkReference", Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis])) {
+        [Syntax.Str](node) {
+            if (node.parent?.type !== Syntax.Paragraph) {
                 return;
             }
             let text = getSource(node);
             // ？の後ろは全角スペースが推奨
             // 半角スペースである場合はエラーとする
             const matchAfter = /？( )[^\n]/;
-            matchCaptureGroupAll(text, matchAfter).forEach(match => {
-                const {index} = match;
-                return report(node, new RuleError("文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。", {
-                    index: index,
-                    fix: fixer.replaceTextRange([index, index + 1], "　")
-                }));
+            matchCaptureGroupAll(text, matchAfter).forEach((match) => {
+                const { index } = match;
+                return report(
+                    node,
+                    new RuleError("文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。", {
+                        index: index,
+                        fix: fixer.replaceTextRange([index, index + 1], "　")
+                    })
+                );
             });
         }
     };

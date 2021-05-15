@@ -5,27 +5,26 @@ import rule from "../src/index";
 var tester = new TextLintTester();
 tester.run("InlineCode周りのスペース", rule, {
     valid: [
-
         {
             text: "`code` と日本語の間はスペースを空ける",
             options: {
                 before: true,
                 after: true
-            },
+            }
         },
         {
             text: "`code`と日本語の間はスペースを空けない",
             options: {
                 before: false,
                 after: false
-            },
+            }
         },
         {
             text: "`code` is good in english text.",
             options: {
                 before: false,
                 after: false
-            },
+            }
         }
     ],
     invalid: [
@@ -95,7 +94,7 @@ tester.run("InlineCode周りのスペース", rule, {
                 }
             ]
         },
-             {
+        {
             text: "これは`code`おかしい",
             output: "これは`code` おかしい",
             options: {
@@ -108,6 +107,6 @@ tester.run("InlineCode周りのスペース", rule, {
                     index: 9
                 }
             ]
-        },
+        }
     ]
 });
