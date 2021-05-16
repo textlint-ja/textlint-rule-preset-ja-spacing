@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "match-index": "^1.0.1",
-    "textlint-rule-helper": "^2.0.0"
+    "textlint-rule-helper": "^2.2.0"
   }
 }
