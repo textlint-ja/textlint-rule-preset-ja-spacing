@@ -2,6 +2,7 @@
 "use strict";
 import TextLintTester from "textlint-tester";
 import rule from "../src/index";
+
 var tester = new TextLintTester();
 tester.run("疑問符(?)", rule, {
     valid: [
@@ -9,7 +10,14 @@ tester.run("疑問符(?)", rule, {
         "【訳文】読者は文書の内容を理解しているでしょうか。",
         "オプションを変更しますか？",
         "A 社の成功の秘密とは？　この本ではそれをご紹介します。",
-        "どう操作したらよいのか？というユーザーの疑問に答えます。"
+        "どう操作したらよいのか？というユーザーの疑問に答えます。",
+        "# どう操作したらよいのか？という",
+        "![どう操作したらよいのか？という](https://example.com)",
+        "[どう操作したらよいのか？という](https://example.com)",
+        "> どう操作したらよいのか？という",
+        "**どう操作したらよいのか？という**",
+        "[どう操作したらよいのか？という][]",
+        "[^どう操作したらよいのか？という]",
     ],
     invalid: [
         {

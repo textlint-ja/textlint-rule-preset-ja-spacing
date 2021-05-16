@@ -11,7 +11,7 @@ module.exports = function(context) {
     const helper = new RuleHelper();
     return {
         [Syntax.Str](node){
-            if (helper.isChildNode(node, [Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Emphasis])) {
+            if (!helper.isPlainStrNode(node)) {
                 return;
             }
             const text = getSource(node);
