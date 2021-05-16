@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-space-around-link",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "リンクの周りをスペースで囲むかどうかを決めるtextlintルール",
   "main": "lib/index.js",
   "files": [

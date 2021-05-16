@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-no-space-around-parentheses",
-  "version": "2.0.2",
+  "version": "2.1.3",
   "description": "かっこ類と隣接する文字のスペースについてのtextlintルール",
   "main": "lib/index.js",
   "files": [

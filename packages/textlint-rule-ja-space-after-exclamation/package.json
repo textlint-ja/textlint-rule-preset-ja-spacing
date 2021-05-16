@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-space-after-exclamation",
-  "version": "2.0.2",
+  "version": "2.1.3",
   "description": "感嘆符前後のスペースについてのtexlintルール",
   "main": "lib/index.js",
   "files": [
