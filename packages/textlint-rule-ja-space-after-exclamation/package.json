@@ -29,7 +29,7 @@
     "textlintrule"
   ],
   "devDependencies": {
-    "textlint-scripts": "^3.0.0"
+    "textlint-scripts": "^12.0.1"
   },
   "dependencies": {
     "match-index": "^1.0.3",
