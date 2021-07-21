@@ -187,6 +187,20 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             ]
         },
         {
+            text: "[Unicodeのサイト](https://home.unicode.org/)です。",
+            output: "[Unicode のサイト](https://home.unicode.org/)です。",
+            options: {
+                space: "always",
+                lintStyledNode: true
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 8
+                }
+            ]
+        },
+        {
             text: "日本語とenglishの間に半角スペースを入れる",
             output: "日本語と english の間に半角スペースを入れる",
             options: {

@@ -48,6 +48,9 @@ textlint --rule ja-space-between-half-and-full-width README.md
 - `exceptPunctuation`: `boolean`
     - デフォルト: `true`
     - 句読点（、。）を例外として扱うかどうか
+- `lintStyledNode`: `boolean`
+    - デフォルト: `false`
+    - プレーンテキスト以外(リンクや画像のキャプションなど)を lint の対象とするかどうか (プレーンテキストの判断基準は [textlint/textlint-rule-helper: This is helper library for creating textlint rule](https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean) を参照してください)
     
 ```json
 {
