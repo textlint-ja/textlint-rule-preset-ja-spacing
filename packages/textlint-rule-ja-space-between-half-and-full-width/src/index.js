@@ -12,7 +12,9 @@ const defaultOptions = {
     // "never" or "always"
     space: "never",
     // [。、,.]を例外とするかどうか
-    exceptPunctuation: true
+    exceptPunctuation: true,
+    // プレーンテキスト以外を対象とするか See https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean
+    lintStyledNode: false,
 };
 function reporter(context, options = {}) {
     const {Syntax, RuleError, report, fixer, getSource} = context;
@@ -21,6 +23,9 @@ function reporter(context, options = {}) {
     const exceptPunctuation = options.exceptPunctuation !== undefined
         ? options.exceptPunctuation
         : defaultOptions.exceptPunctuation;
+    const lintStyledNode = options.lintStyledNode !== undefined
+        ? options.lintStyledNode
+        : defaultOptions.lintStyledNode;
     assert(spaceOption === "always" || spaceOption === "never", `"space" options should be "always" or "never".`);
     /**
      * `text`を対象に例外オプションを取り除くfilter関数を返す
@@ -76,7 +81,7 @@ function reporter(context, options = {}) {
     };
     return {
         [Syntax.Str](node){
-            if (!helper.isPlainStrNode(node)) {
+            if (!lintStyledNode && !helper.isPlainStrNode(node)) {
                 return;
             }
             const text = getSource(node);
