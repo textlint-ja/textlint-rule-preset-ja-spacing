@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-no-space-between-full-width",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "全角文字同士の間のスペースについてのtextlintルール",
   "main": "lib/index.js",
   "files": [

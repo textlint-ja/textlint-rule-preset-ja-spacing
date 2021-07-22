@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.1.3...v2.2.0) (2021-07-22)
+
+
+### Features
+
+* **space-between-half-and-full:** add option to lint styled nodes ([#30](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues/30)) ([fcbaa66](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/commit/fcbaa6618c4a085825ee8bc47f13663089c5d127))
+
+
+
+
+
 ## [2.1.3](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.1.2...v2.1.3) (2021-05-16)
 
 **Note:** Version bump only for package textlint-rule-preset-ja-spacing
