@@ -7,6 +7,7 @@ const assert = require("assert");
 import {RuleHelper} from "textlint-rule-helper";
 import {matchCaptureGroupAll} from "match-index";
 const PunctuationRegExp = /[。、]/;
+const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]'
 const defaultOptions = {
     // スペースを入れるかどうか
     // "never" or "always"
@@ -61,8 +62,8 @@ function reporter(context, options = {}) {
     };
     // Never: アルファベットと全角の間はスペースを入れない
     const noSpaceBetween = (node, text) => {
-        const betweenHanAndZen = matchCaptureGroupAll(text, /[A-Za-z0-9]([ 　])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
-        const betweenZenAndHan = matchCaptureGroupAll(text, /(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])([ 　])[A-Za-z0-9]/);
+        const betweenHanAndZen = matchCaptureGroupAll(text, new RegExp(`[A-Za-z0-9]([ 　])(?:${ZenRegExpStr})`));
+        const betweenZenAndHan = matchCaptureGroupAll(text, new RegExp(`(?:${ZenRegExpStr})([ 　])[A-Za-z0-9]`));
         const reportMatch = (match) => {
             const {index} = match;
             report(node, new RuleError("原則として、全角文字と半角文字の間にスペースを入れません。", {
@@ -76,18 +77,18 @@ function reporter(context, options = {}) {
 
     // Always: アルファベットと全角の間はスペースを入れる
     const needSpaceBetween = (node, text, ignoreNumbers) => {
-        const betweenHanAndZenRegExp = ignoreNumbers
-            ? /([A-Za-z])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/
-            : /([A-Za-z0-9])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/
-        const betweenZenAndHanRegExp = ignoreNumbers
-            ? /([、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])[A-Za-z]/
-            : /([、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])[A-Za-z0-9]/
+        const betweenHanAndZenRegExpStr = ignoreNumbers
+            ? `([A-Za-z])(?:${ZenRegExpStr})`
+            : `([A-Za-z0-9])(?:${ZenRegExpStr})`
+        const betweenZenAndHanRegExpStr = ignoreNumbers
+            ? `(${ZenRegExpStr})[A-Za-z]`
+            : `(${ZenRegExpStr})[A-Za-z0-9]`
         const errorMsg = ignoreNumbers
             ? "原則として、全角文字と数字以外の半角文字の間にスペースを入れます。"
             : "原則として、全角文字と半角文字の間にスペースを入れます。"
 
-        const betweenHanAndZen = matchCaptureGroupAll(text, betweenHanAndZenRegExp);
-        const betweenZenAndHan = matchCaptureGroupAll(text, betweenZenAndHanRegExp);
+        const betweenHanAndZen = matchCaptureGroupAll(text, new RegExp(betweenHanAndZenRegExpStr));
+        const betweenZenAndHan = matchCaptureGroupAll(text, new RegExp(betweenZenAndHanRegExpStr));
         const reportMatch = (match) => {
             const {index} = match;
             report(node, new RuleError(errorMsg, {
