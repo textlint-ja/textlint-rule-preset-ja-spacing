@@ -8,6 +8,7 @@ tester.run("全角文字と半角文字の間", rule, {
         // デフォルト: never && exceptPunctuation
         "JTF標準",
         "これも、OK。",
+        "最新のversionは1.2.3です。",
         {
             text: "JTF標準",
             options: {
@@ -33,6 +34,12 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         },
         {
             text: "日本語と english の間に半角スペースを入れる",
+            options: {
+                space: "always"
+            }
+        },
+        {
+            text: "最新の version は 1.2.3 です。",
             options: {
                 space: "always"
             }
@@ -75,6 +82,14 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 exceptPunctuation: true
             }
         },
+        // ignoreNumbers
+       {
+            text: "最新の version は1.2.3です。",
+            options: {
+                space: "always",
+                ignoreNumbers: true
+            }
+       }
     ],
     invalid: [
         {
@@ -217,6 +232,31 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 }
             ]
         },
+        {
+            text: "最新のversionは1.2.3です。",
+            output: "最新の version は 1.2.3 です。",
+            options: {
+                space: "always"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 10
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 11
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 16
+                }
+            ]
+        },
         // with option
         {
             text: "aaaとbbb、cccとddd",
@@ -244,5 +284,24 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 }
             ]
         },
+        // ignoreNumbers
+        {
+            text: "最新のversionは1.2.3です。",
+            output: "最新の version は1.2.3です。",
+            options: {
+                space: "always",
+                ignoreNumbers: true
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と数字以外の半角文字の間にスペースを入れます。",
+                    column: 3
+                },
+                {
+                    message: "原則として、全角文字と数字以外の半角文字の間にスペースを入れます。",
+                    column: 10
+                }
+            ]
+        }
     ]
 });
