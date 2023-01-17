@@ -35,7 +35,7 @@ function reporter(context, options = {}) {
         : defaultOptions.lintStyledNode;
     assert(spaceOption === "always" || spaceOption === "never", `"space" options should be "always" or "never".`);
     if (spaceOption !== "always") {
-      assert(ignoreNumbers === false, `"ignoreNumbers" option can work only with "always" for the space option.`);
+      assert(ignoreNumbers === false, `"ignoreNumbers" option can only work with "always" for the space option.`);
     }
     /**
      * `text`を対象に例外オプションを取り除くfilter関数を返す
