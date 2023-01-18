@@ -41,7 +41,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "最新の version は 1.2.3 です。",
             options: {
-                space: "always"
+                space: ["numbers", "alphabets", "punctuation"]
             }
         },
         // ignore
@@ -51,12 +51,24 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 space: "never"
             },
         },
+        {
+            text: "# JTF 標準",
+            options: {
+                space: []
+            },
+        },
         // except
         {
             text: "Always これは、Exception。",
             options: {
                 space: "always",
                 exceptPunctuation: true
+            },
+        },
+        {
+            text: "Always これは、Exception。",
+            options: {
+                space: ["numbers", "alphabets", "punctuation"],
             },
         },
         // 入れても良い
@@ -68,10 +80,22 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             },
         },
         {
+            text: "Always これは 、 Exception 。",
+            options: {
+                space: ["numbers", "alphabets", "punctuation"],
+            },
+        },
+        {
             text: "Never:これは、 Exception 。",
             options: {
                 space: "never",
                 exceptPunctuation: true
+            }
+        },
+        {
+            text: "Never:これは、 Exception 。",
+            options: {
+                space: []
             }
         },
         // 入れても良い
@@ -82,12 +106,17 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 exceptPunctuation: true
             }
         },
+        {
+            text: "Never:これは、Exception。",
+            options: {
+                space: [],
+            }
+        },
         // ignoreNumbers
        {
             text: "最新の version は1.2.3です。",
             options: {
-                space: "always",
-                ignoreNumbers: true
+                space: ["alphabets", "punctuation"]
             }
        }
     ],
@@ -107,6 +136,19 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             output: "JTF標準",
             options: {
                 space: "never"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    column: 4
+                }
+            ]
+        },
+        {
+            text: "JTF 標準",
+            output: "JTF標準",
+            options: {
+                space: []
             },
             errors: [
                 {
@@ -162,6 +204,19 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             output: "JTF 標準",
             options: {
                 space: "always"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                }
+            ]
+        },
+        {
+            text: "JTF標準",
+            output: "JTF 標準",
+            options: {
+                space: ['numbers', 'alphabets', 'punctuation']
             },
             errors: [
                 {
@@ -289,8 +344,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             text: "最新のversionは1.2.3です。",
             output: "最新の version は1.2.3です。",
             options: {
-                space: "always",
-                ignoreNumbers: true
+                space: ["alphabets", "punctuation"]
             },
             errors: [
                 {
