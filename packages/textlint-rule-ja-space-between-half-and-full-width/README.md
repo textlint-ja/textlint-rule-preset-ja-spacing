@@ -42,12 +42,13 @@ textlint --rule ja-space-between-half-and-full-width README.md
 
 ## Options
 
-- `space`: `"always"` || `"never"`
+- `space`: `"always"` || `"never"` || Array
     - デフォルト: `"never"`
     - スペースを常に 入れる(`"always"`) or 入れない(`"never"`)
-- `ignoreNumbers`: `boolean`
-    - デフォルト: `false`
-    - `space: "always"` の時のみ指定可能。半角数字を無視するかどうか
+    - Array 形式での指定も可能: `['alphabets', 'numbers', 'punctuation']`
+      - 対象としたい物のみ指定する
+      - 例えば、数値と句読点（、。）を例外として扱いたい場合は以下
+        - `['alphabets']`
 - `exceptPunctuation`: `boolean`
     - デフォルト: `true`
     - 句読点（、。）を例外として扱うかどうか
