@@ -7,11 +7,11 @@ const assert = require("assert");
 import {RuleHelper} from "textlint-rule-helper";
 import {matchCaptureGroupAll} from "match-index";
 const PunctuationRegExp = /[。、]/;
-const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]'
+const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]';
 const defaultSpaceOptions = {
-  alphabets: false,
-  numbers: false,
-  punctuation: false
+    alphabets: false,
+    numbers: false,
+    punctuation: false
 };
 const defaultOptions = {
     // プレーンテキスト以外を対象とするか See https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean
@@ -21,17 +21,20 @@ function reporter(context, options = {}) {
    /**
     * 入力された `space` オプションを内部処理用に成形する
     * @param {string|Array|undefined} opt `space` オプションのインプット
-    * @returns {Array}
+    * @param {boolean|undefined} exceptPunctuation `exceptPunctuation` オプションのインプット
+    * @returns {Object}
     */
     const parseSpaceOption = (opt, exceptPunctuation) => {
       let option = {...defaultSpaceOptions};
 
       if (typeof opt === 'string') {
         assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
+
         if (opt === 'always') option = { ...option, alphabets: true, numbers: true };
         if (exceptPunctuation === false) option = { ...option, punctuation: true };
       } else if (Array.isArray(opt)) {
-        assert(opt.every((v) => Object.keys(option).includes(v)), `Only "alphabets", "numbers", "punctuation" should be included in the array.`);
+        assert(opt.every((v) => Object.keys(option).includes(v)), `Only "alphabets", "numbers", "punctuation" can be included in the array.`);
+
         opt.map(key => option[key] = true);
       }
 
@@ -106,7 +109,7 @@ function reporter(context, options = {}) {
 
         const betweenHanAndZenRegExp = generateRegExp(options);
         const betweenZenAndHanRegExp = generateRegExp(options, false);
-        const errorMsg = '原則として、全角文字と半角文字の間にスペースを入れます。'
+        const errorMsg = '原則として、全角文字と半角文字の間にスペースを入れます。';
 
         const betweenHanAndZen = matchCaptureGroupAll(text, betweenHanAndZenRegExp);
         const betweenZenAndHan = matchCaptureGroupAll(text, betweenZenAndHanRegExp);
@@ -131,7 +134,7 @@ function reporter(context, options = {}) {
             if (Object.keys(spaceOption).every(noSpace)) {
                 noSpaceBetween(node, text);
             } else {
-                needSpaceBetween(node, text, spaceOption)
+                needSpaceBetween(node, text, spaceOption);
             }
         }
     }
