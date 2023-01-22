@@ -45,10 +45,10 @@ textlint --rule ja-space-between-half-and-full-width README.md
 - `space`: `"always"` || `"never"` || Array
     - デフォルト: `"never"`
     - スペースを常に 入れる(`"always"`) or 入れない(`"never"`)
-    - Array 形式での指定も可能: `['alphabets', 'numbers', 'punctuation']`
+    - Array 形式での指定も可能: `["alphabets", "numbers", "punctuation"]`
       - 対象としたい物のみ指定する
       - 例えば、数値と句読点（、。）を例外として扱いたい場合は以下
-        - `['alphabets']`
+        - `["alphabets"]`
 - `exceptPunctuation`: `boolean`
     - デフォルト: `true`
     - 句読点（、。）を例外として扱うかどうか
@@ -68,7 +68,7 @@ textlint --rule ja-space-between-half-and-full-width README.md
 
 `exceptPunctuation: true`とした場合は、句読点に関しては無視されるようになります。
 
-スペースは必須だが、`日本語、[alphabet]。`は許可する
+スペースは必須だが、`日本語、[alphabet]。`は許可する。
 
         text: "これは、Exception。",
         options: {
