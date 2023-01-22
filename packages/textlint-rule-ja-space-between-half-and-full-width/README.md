@@ -9,7 +9,7 @@
     OK: これはUnicode
     NG: これは Unicode
 
-全角文字には、句読点（、。）も含まれていますがデフォルトでは、`exceptPunctuation: true`であるため無視されます。
+全角文字には、句読点（、。）も含まれていますがデフォルトでは、有効であるため無視されます。
 
     OK: これも、Unicode。
 
@@ -42,16 +42,17 @@ textlint --rule ja-space-between-half-and-full-width README.md
 
 ## Options
 
-- `space`: `"always"` || `"never"` || Array
+- `space`: `"always"` || `"never"` || `string[]`
     - デフォルト: `"never"`
     - スペースを常に 入れる(`"always"`) or 入れない(`"never"`)
     - Array 形式での指定も可能: `["alphabets", "numbers", "punctuation"]`
       - 対象としたい物のみ指定する
       - 例えば、数値と句読点（、。）を例外として扱いたい場合は以下
         - `["alphabets"]`
-- `exceptPunctuation`: `boolean`
+- （非推奨）`exceptPunctuation`: `boolean`
     - デフォルト: `true`
     - 句読点（、。）を例外として扱うかどうか
+    - 代わりに `space` オプションを用いて `["alphabets", "numbers"]` と指定する
 - `lintStyledNode`: `boolean`
     - デフォルト: `false`
     - プレーンテキスト以外(リンクや画像のキャプションなど)を lint の対象とするかどうか (プレーンテキストの判断基準は [textlint/textlint-rule-helper: This is helper library for creating textlint rule](https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean) を参照してください)
@@ -64,26 +65,24 @@ textlint --rule ja-space-between-half-and-full-width README.md
         }
     }
 }
-```   
+```
 
-`exceptPunctuation: true`とした場合は、句読点に関しては無視されるようになります。
+`space` オプションに `"punctuation"` を含めない場合は、句読点に関しては無視されるようになります。
 
 スペースは必須だが、`日本語、[alphabet]。`は許可する。
 
         text: "これは、Exception。",
         options: {
-            space: "always",
-            exceptPunctuation: true
+            space: ["alphabets", "numbers"]
         }
 
 スペースは不要だが、`日本語、 [alphabet] 。`は許可する。
 
         text: "これは、 Exception 。",
         options: {
-            space: "never",
-            exceptPunctuation: true
+            space: []
         }
-        
+
 
 ## Changelog
 
