@@ -97,7 +97,7 @@ function reporter(context, options = {}) {
         * @returns {Object}
         */
         const generateRegExp = (opt, btwHanAndZen = true) => {
-          const alphabets = 'A-Za-z';
+          const alphabets = opt.includes('alphabets') ? 'A-Za-z' : '';
           const numbers = opt.includes('numbers') ? '0-9' : '';
 
           let expStr;
@@ -112,9 +112,7 @@ function reporter(context, options = {}) {
 
         const betweenHanAndZenRegExp = generateRegExp(options);
         const betweenZenAndHanRegExp = generateRegExp(options, false);
-        const errorMsg = options.includes('numbers')
-            ? "原則として、全角文字と半角文字の間にスペースを入れます。"
-            : "原則として、全角文字と数字以外の半角文字の間にスペースを入れます。"
+        const errorMsg = '原則として、全角文字と半角文字の間にスペースを入れます。'
 
         const betweenHanAndZen = matchCaptureGroupAll(text, betweenHanAndZenRegExp);
         const betweenZenAndHan = matchCaptureGroupAll(text, betweenZenAndHanRegExp);
