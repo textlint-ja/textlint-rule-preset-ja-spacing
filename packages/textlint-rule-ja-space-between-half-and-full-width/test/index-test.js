@@ -41,7 +41,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "最新の version は 1.2.3 です。",
             options: {
-                space: ["alphabets", "numbers", "punctuation"]
+                space: ["alphabets", "numbers"]
             }
         },
         // ignore
@@ -68,7 +68,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "Always これは、Exception。",
             options: {
-                space: ["alphabets", "numbers", "punctuation"]
+                space: ["alphabets", "numbers"]
             },
         },
         // 入れても良い
@@ -82,7 +82,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "Always これは 、 Exception 。",
             options: {
-                space: ["alphabets", "numbers", "punctuation"]
+                space: ["alphabets", "numbers"]
             },
         },
         {
@@ -223,7 +223,7 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             text: "JTF標準",
             output: "JTF 標準",
             options: {
-                space: ["alphabets", "numbers", "punctuation"]
+                space: ["alphabets", "numbers"]
             },
             errors: [
                 {

@@ -9,15 +9,14 @@ import {matchCaptureGroupAll} from "match-index";
 const PunctuationRegExp = /[。、]/;
 const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]'
 const spaceOptions = {
-  always: ['alphabets', 'numbers', 'punctuation'],
+  all: ['alphabets', 'numbers', 'punctuation'],
+  always: ['alphabets', 'numbers'],
   never: [],
 };
 const defaultOptions = {
     // スペースを入れるかどうか
     // ("never"|"always"|Array)
     space: spaceOptions.never,
-    // [。、,.]を例外とするかどうか
-    exceptPunctuation: true,
     // プレーンテキスト以外を対象とするか See https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean
     lintStyledNode: false,
 };
@@ -27,14 +26,15 @@ function reporter(context, options = {}) {
     * @param {string|Array|undefined} opt `space` オプションのインプット
     * @returns {Array}
     */
-    const parseSpaceOption = (opt) => {
+    const parseSpaceOption = (opt, exceptPunctuation) => {
       let option = defaultOptions.space;
       if (typeof opt === 'string') {
-         assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
+        assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
         if (opt === 'always') option = spaceOptions.always
+        if (exceptPunctuation === false) option = [...option, 'punctuation']
       } else if (Array.isArray(opt)) {
-         assert(opt.every((v) => spaceOptions.always.includes(v)), `Only "alphabets", "numbers", "punctuation" should be included in the array.`);
-         option = opt;
+        assert(opt.every((v) => spaceOptions.all.includes(v)), `Only "alphabets", "numbers", "punctuation" should be included in the array.`);
+        option = opt;
       }
 
       return option;
@@ -42,11 +42,7 @@ function reporter(context, options = {}) {
 
     const {Syntax, RuleError, report, fixer, getSource} = context;
     const helper = new RuleHelper();
-    const spaceOption = parseSpaceOption(options.space);
-    let exceptPunctuation = spaceOption.includes('punctuation') ? true : undefined;
-    exceptPunctuation = options.exceptPunctuation !== undefined
-        ? options.exceptPunctuation
-        : defaultOptions.exceptPunctuation;
+    const spaceOption = parseSpaceOption(options.space, options.exceptPunctuation);
     const lintStyledNode = options.lintStyledNode !== undefined
         ? options.lintStyledNode
         : defaultOptions.lintStyledNode;
@@ -58,7 +54,7 @@ function reporter(context, options = {}) {
      */
     const createFilter = (text, padding) => {
         /**
-         * `exceptPunctuation`で指定された例外を取り除く
+         * `PunctuationRegExp`で指定された例外を取り除く
          * @param {Object} match
          * @returns {boolean}
          */
@@ -67,7 +63,7 @@ function reporter(context, options = {}) {
             if (!targetChar) {
                 return false;
             }
-            if (exceptPunctuation && PunctuationRegExp.test(targetChar)) {
+            if (!spaceOption.includes('punctuation') && PunctuationRegExp.test(targetChar)) {
                 return false;
             }
             return true;
