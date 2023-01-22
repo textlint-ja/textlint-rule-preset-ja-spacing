@@ -8,15 +8,12 @@ import {RuleHelper} from "textlint-rule-helper";
 import {matchCaptureGroupAll} from "match-index";
 const PunctuationRegExp = /[。、]/;
 const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]'
-const spaceOptions = {
-  all: ['alphabets', 'numbers', 'punctuation'],
-  always: ['alphabets', 'numbers'],
-  never: [],
+const defaultSpaceOptions = {
+  alphabets: false,
+  numbers: false,
+  punctuation: false
 };
 const defaultOptions = {
-    // スペースを入れるかどうか
-    // ("never"|"always"|Array)
-    space: spaceOptions.never,
     // プレーンテキスト以外を対象とするか See https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean
     lintStyledNode: false,
 };
@@ -27,14 +24,15 @@ function reporter(context, options = {}) {
     * @returns {Array}
     */
     const parseSpaceOption = (opt, exceptPunctuation) => {
-      let option = defaultOptions.space;
+      let option = {...defaultSpaceOptions};
+
       if (typeof opt === 'string') {
         assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
-        if (opt === 'always') option = spaceOptions.always
-        if (exceptPunctuation === false) option = [...option, 'punctuation']
+        if (opt === 'always') option = { ...option, alphabets: true, numbers: true };
+        if (exceptPunctuation === false) option = { ...option, punctuation: true };
       } else if (Array.isArray(opt)) {
-        assert(opt.every((v) => spaceOptions.all.includes(v)), `Only "alphabets", "numbers", "punctuation" should be included in the array.`);
-        option = opt;
+        assert(opt.every((v) => Object.keys(option).includes(v)), `Only "alphabets", "numbers", "punctuation" should be included in the array.`);
+        opt.map(key => option[key] = true);
       }
 
       return option;
@@ -63,7 +61,7 @@ function reporter(context, options = {}) {
             if (!targetChar) {
                 return false;
             }
-            if (!spaceOption.includes('punctuation') && PunctuationRegExp.test(targetChar)) {
+            if (!spaceOption.punctuation && PunctuationRegExp.test(targetChar)) {
                 return false;
             }
             return true;
@@ -93,8 +91,8 @@ function reporter(context, options = {}) {
         * @returns {Object}
         */
         const generateRegExp = (opt, btwHanAndZen = true) => {
-          const alphabets = opt.includes('alphabets') ? 'A-Za-z' : '';
-          const numbers = opt.includes('numbers') ? '0-9' : '';
+          const alphabets = opt.alphabets ? 'A-Za-z' : '';
+          const numbers = opt.numbers ? '0-9' : '';
 
           let expStr;
           if (btwHanAndZen) {
@@ -129,12 +127,12 @@ function reporter(context, options = {}) {
             }
             const text = getSource(node);
 
-          if (spaceOption.filter(opt => opt !== 'punctuation').length === 0) {
+            const noSpace = (key) => key === 'punctuation' ? true : !spaceOption[key];
+            if (Object.keys(spaceOption).every(noSpace)) {
                 noSpaceBetween(node, text);
             } else {
                 needSpaceBetween(node, text, spaceOption)
             }
-
         }
     }
 }
