@@ -29,11 +29,11 @@
     "textlintrule"
   ],
   "devDependencies": {
-    "textlint-scripts": "^12.0.1"
+    "textlint-scripts": "^12.6.0"
   },
   "dependencies": {
     "match-index": "^1.0.3",
     "regx": "^1.0.4",
-    "textlint-rule-helper": "^2.2.0"
+    "textlint-rule-helper": "^2.2.4"
   }
 }
