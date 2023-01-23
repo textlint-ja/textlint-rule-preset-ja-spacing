@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.2.0...v2.3.0) (2023-01-23)
+
+
+### Features
+
+* **space-between-half-and-full-width:** add an option to ignore numbers and apply only to alphabets ([#45](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues/45)) ([4eec7ed](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/commit/4eec7ed56db4089153ab31fd087fcb702525e298))
+
+
+
+
+
 # [2.2.0](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.1.3...v2.2.0) (2021-07-22)
 
 
