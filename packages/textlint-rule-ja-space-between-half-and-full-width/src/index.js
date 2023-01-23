@@ -25,22 +25,32 @@ function reporter(context, options = {}) {
     * @returns {Object}
     */
     const parseSpaceOption = (opt, exceptPunctuation) => {
-      let userOptions = {};
-
       if (typeof opt === 'string') {
         assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
 
-        if (opt === 'always') userOptions = {...userOptions, alphabets: true, numbers: true};
-        if (exceptPunctuation === false) userOptions = { ...userOptions, punctuation: true };
+        if (opt === "always") {
+          if (exceptPunctuation === false) {
+            return {...defaultSpaceOptions, alphabets: true, numbers: true, punctuation: true};
+          } else {
+            return {...defaultSpaceOptions, alphabets: true, numbers: true};
+          }
+        } else if (opt === "never") {
+          if (exceptPunctuation === false) {
+            return {...defaultSpaceOptions, punctuation: true};
+          } else {
+            return defaultSpaceOptions;
+          }
+        }
       } else if (Array.isArray(opt)) {
         assert(
           opt.every((v) => Object.keys(defaultSpaceOptions).includes(v)),
           `Only "alphabets", "numbers", "punctuation" can be included in the array.`
         );
-        userOptions = Object.fromEntries(opt.map(key => [key, true]));
+        const userOptions = Object.fromEntries(opt.map(key => [key, true]));
+        return {...defaultSpaceOptions, ...userOptions};
       }
 
-      return {...defaultSpaceOptions, ...userOptions};
+      return defaultSpaceOptions;
     }
 
     const {Syntax, RuleError, report, fixer, getSource} = context;
