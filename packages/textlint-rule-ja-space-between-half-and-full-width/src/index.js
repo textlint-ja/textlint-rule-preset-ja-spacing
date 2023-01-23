@@ -7,26 +7,58 @@ const assert = require("assert");
 import {RuleHelper} from "textlint-rule-helper";
 import {matchCaptureGroupAll} from "match-index";
 const PunctuationRegExp = /[。、]/;
+const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]';
+const defaultSpaceOptions = {
+    alphabets: false,
+    numbers: false,
+    punctuation: false
+};
 const defaultOptions = {
-    // スペースを入れるかどうか
-    // "never" or "always"
-    space: "never",
-    // [。、,.]を例外とするかどうか
-    exceptPunctuation: true,
     // プレーンテキスト以外を対象とするか See https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean
     lintStyledNode: false,
 };
 function reporter(context, options = {}) {
+   /**
+    * 入力された `space` オプションを内部処理用に成形する
+    * @param {string|Array|undefined} opt `space` オプションのインプット
+    * @param {boolean|undefined} exceptPunctuation `exceptPunctuation` オプションのインプット
+    * @returns {Object}
+    */
+    const parseSpaceOption = (opt, exceptPunctuation) => {
+      if (typeof opt === 'string') {
+        assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
+
+        if (opt === "always") {
+          if (exceptPunctuation === false) {
+            return {...defaultSpaceOptions, alphabets: true, numbers: true, punctuation: true};
+          } else {
+            return {...defaultSpaceOptions, alphabets: true, numbers: true};
+          }
+        } else if (opt === "never") {
+          if (exceptPunctuation === false) {
+            return {...defaultSpaceOptions, punctuation: true};
+          } else {
+            return defaultSpaceOptions;
+          }
+        }
+      } else if (Array.isArray(opt)) {
+        assert(
+          opt.every((v) => Object.keys(defaultSpaceOptions).includes(v)),
+          `Only "alphabets", "numbers", "punctuation" can be included in the array.`
+        );
+        const userOptions = Object.fromEntries(opt.map(key => [key, true]));
+        return {...defaultSpaceOptions, ...userOptions};
+      }
+
+      return defaultSpaceOptions;
+    }
+
     const {Syntax, RuleError, report, fixer, getSource} = context;
     const helper = new RuleHelper();
-    const spaceOption = options.space || defaultOptions.space;
-    const exceptPunctuation = options.exceptPunctuation !== undefined
-        ? options.exceptPunctuation
-        : defaultOptions.exceptPunctuation;
+    const spaceOption = parseSpaceOption(options.space, options.exceptPunctuation);
     const lintStyledNode = options.lintStyledNode !== undefined
         ? options.lintStyledNode
         : defaultOptions.lintStyledNode;
-    assert(spaceOption === "always" || spaceOption === "never", `"space" options should be "always" or "never".`);
     /**
      * `text`を対象に例外オプションを取り除くfilter関数を返す
      * @param {string} text テスト対象のテキスト全体
@@ -35,7 +67,7 @@ function reporter(context, options = {}) {
      */
     const createFilter = (text, padding) => {
         /**
-         * `exceptPunctuation`で指定された例外を取り除く
+         * `PunctuationRegExp`で指定された例外を取り除く
          * @param {Object} match
          * @returns {boolean}
          */
@@ -44,7 +76,7 @@ function reporter(context, options = {}) {
             if (!targetChar) {
                 return false;
             }
-            if (exceptPunctuation && PunctuationRegExp.test(targetChar)) {
+            if (!spaceOption.punctuation && PunctuationRegExp.test(targetChar)) {
                 return false;
             }
             return true;
@@ -52,8 +84,8 @@ function reporter(context, options = {}) {
     };
     // Never: アルファベットと全角の間はスペースを入れない
     const noSpaceBetween = (node, text) => {
-        const betweenHanAndZen = matchCaptureGroupAll(text, /[A-Za-z0-9]([ 　])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
-        const betweenZenAndHan = matchCaptureGroupAll(text, /(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])([ 　])[A-Za-z0-9]/);
+        const betweenHanAndZen = matchCaptureGroupAll(text, new RegExp(`[A-Za-z0-9]([ 　])(?:${ZenRegExpStr})`));
+        const betweenZenAndHan = matchCaptureGroupAll(text, new RegExp(`(?:${ZenRegExpStr})([ 　])[A-Za-z0-9]`));
         const reportMatch = (match) => {
             const {index} = match;
             report(node, new RuleError("原則として、全角文字と半角文字の間にスペースを入れません。", {
@@ -66,12 +98,36 @@ function reporter(context, options = {}) {
     };
 
     // Always: アルファベットと全角の間はスペースを入れる
-    const needSpaceBetween = (node, text) => {
-        const betweenHanAndZen = matchCaptureGroupAll(text, /([A-Za-z0-9])(?:[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])/);
-        const betweenZenAndHan = matchCaptureGroupAll(text, /([、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])[A-Za-z0-9]/);
+    const needSpaceBetween = (node, text, options) => {
+       /**
+        * オプションを元に正規表現オプジェクトを生成する
+        * @param {Array} opt `space` オプション
+        * @param {boolean} btwHanAndZen=true 半角全角の間か全角半角の間か
+        * @returns {Object}
+        */
+        const generateRegExp = (opt, btwHanAndZen = true) => {
+          const alphabets = opt.alphabets ? 'A-Za-z' : '';
+          const numbers = opt.numbers ? '0-9' : '';
+
+          let expStr;
+          if (btwHanAndZen) {
+            expStr = `([${alphabets}${numbers}])(?:${ZenRegExpStr})`;
+          } else {
+            expStr = `(${ZenRegExpStr})[${alphabets}${numbers}]`;
+          }
+
+          return new RegExp(expStr);
+        };
+
+        const betweenHanAndZenRegExp = generateRegExp(options);
+        const betweenZenAndHanRegExp = generateRegExp(options, false);
+        const errorMsg = '原則として、全角文字と半角文字の間にスペースを入れます。';
+
+        const betweenHanAndZen = matchCaptureGroupAll(text, betweenHanAndZenRegExp);
+        const betweenZenAndHan = matchCaptureGroupAll(text, betweenZenAndHanRegExp);
         const reportMatch = (match) => {
             const {index} = match;
-            report(node, new RuleError("原則として、全角文字と半角文字の間にスペースを入れます。", {
+            report(node, new RuleError(errorMsg, {
                 index: match.index,
                 fix: fixer.replaceTextRange([index + 1, index + 1], " ")
             }));
@@ -86,12 +142,12 @@ function reporter(context, options = {}) {
             }
             const text = getSource(node);
 
-            if (spaceOption === "always") {
-                needSpaceBetween(node, text)
-            } else if (spaceOption === "never") {
+            const noSpace = (key) => key === 'punctuation' ? true : !spaceOption[key];
+            if (Object.keys(spaceOption).every(noSpace)) {
                 noSpaceBetween(node, text);
+            } else {
+                needSpaceBetween(node, text, spaceOption);
             }
-
         }
     }
 }

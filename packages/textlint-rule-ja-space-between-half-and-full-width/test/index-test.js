@@ -8,6 +8,7 @@ tester.run("全角文字と半角文字の間", rule, {
         // デフォルト: never && exceptPunctuation
         "JTF標準",
         "これも、OK。",
+        "最新のversionは1.2.3です。",
         {
             text: "JTF標準",
             options: {
@@ -37,11 +38,23 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 space: "always"
             }
         },
+        {
+            text: "最新の version は 1.2.3 です。",
+            options: {
+                space: ["alphabets", "numbers"]
+            }
+        },
         // ignore
         {
             text: "# JTF 標準",
             options: {
                 space: "never"
+            },
+        },
+        {
+            text: "# JTF 標準",
+            options: {
+                space: []
             },
         },
         // except
@@ -50,6 +63,12 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "always",
                 exceptPunctuation: true
+            },
+        },
+        {
+            text: "Always これは、Exception。",
+            options: {
+                space: ["alphabets", "numbers"]
             },
         },
         // 入れても良い
@@ -61,10 +80,22 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             },
         },
         {
+            text: "Always これは 、 Exception 。",
+            options: {
+                space: ["alphabets", "numbers"]
+            },
+        },
+        {
             text: "Never:これは、 Exception 。",
             options: {
                 space: "never",
                 exceptPunctuation: true
+            }
+        },
+        {
+            text: "Never:これは、 Exception 。",
+            options: {
+                space: []
             }
         },
         // 入れても良い
@@ -75,6 +106,26 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 exceptPunctuation: true
             }
         },
+        {
+            text: "Never:これは、Exception。",
+            options: {
+                space: [],
+            }
+        },
+        // ignoreAlphabets
+       {
+            text: "最新のversionは 1.2.3 です。",
+            options: {
+                space: ["numbers", "punctuation"]
+            }
+       },
+        // ignoreNumbers
+       {
+            text: "最新の version は1.2.3です。",
+            options: {
+                space: ["alphabets", "punctuation"]
+            }
+       }
     ],
     invalid: [
         {
@@ -92,6 +143,19 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             output: "JTF標準",
             options: {
                 space: "never"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。",
+                    column: 4
+                }
+            ]
+        },
+        {
+            text: "JTF 標準",
+            output: "JTF標準",
+            options: {
+                space: []
             },
             errors: [
                 {
@@ -147,6 +211,19 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             output: "JTF 標準",
             options: {
                 space: "always"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                }
+            ]
+        },
+        {
+            text: "JTF標準",
+            output: "JTF 標準",
+            options: {
+                space: ["alphabets", "numbers"]
             },
             errors: [
                 {
@@ -217,6 +294,31 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 }
             ]
         },
+        {
+            text: "最新のversionは1.2.3です。",
+            output: "最新の version は 1.2.3 です。",
+            options: {
+                space: "always"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 10
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 11
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 16
+                }
+            ]
+        },
         // with option
         {
             text: "aaaとbbb、cccとddd",
@@ -244,5 +346,41 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 }
             ]
         },
+        // ignoreAlphabets
+        {
+            text: "最新のversionは1.2.3です。",
+            output: "最新のversionは 1.2.3 です。",
+            options: {
+                space: ["numbers", "punctuation"]
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 11
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 16
+                }
+            ]
+        },
+        // ignoreNumbers
+        {
+            text: "最新のversionは1.2.3です。",
+            output: "最新の version は1.2.3です。",
+            options: {
+                space: ["alphabets", "punctuation"]
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 3
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。",
+                    column: 10
+                }
+            ]
+        }
     ]
 });
