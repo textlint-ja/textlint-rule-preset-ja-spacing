@@ -9,6 +9,7 @@ module.exports = {
         "ja-space-after-exclamation": require("textlint-rule-ja-space-after-exclamation"),
         "ja-space-after-question": require("textlint-rule-ja-space-after-question"),
         "ja-space-around-code": require("textlint-rule-ja-space-around-code"),
+        "ja-space-around-link": require("textlint-rule-ja-space-around-link"),
     },
     rulesConfig: {
         "ja-nakaguro-or-halfwidth-space-between-katakana": true,
@@ -20,5 +21,6 @@ module.exports = {
         "ja-space-after-exclamation": true,
         "ja-space-after-question": true,
         "ja-space-around-code": false,
+        "ja-space-around-link": false,
     }
 };
