@@ -1,0 +1,37 @@
+name: website
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Set Env
+        run: |
+          echo "OWNER_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $1}')" >> $GITHUB_ENV
+          echo "REPO_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')" >> $GITHUB_ENV
+          echo "CURRENT_VERSION=$(node -p 'require("./package.json").version')" >> $GITHUB_ENV
+      - name: Install
+        run: yarn install
+      - name: Build
+        run: |
+          yarn install
+          npm run website -- --metadataVersion="${CURRENT_VERSION}"
+        env:
+          OWNER_NAME: ${{ env.OWNER_NAME }}
+          REPO_NAME: ${{ env.REPO_NAME }}
+          CURRENT_VERSION: ${{ env.CURRENT_VERSION }}
+        working-directory: website/
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/dist

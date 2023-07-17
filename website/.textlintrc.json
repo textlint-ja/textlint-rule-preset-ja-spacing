@@ -1,0 +1,8 @@
+{
+  "filters": {
+    "comments": true
+  },
+  "rules": {
+    "preset-ja-spacing": true
+  }
+}

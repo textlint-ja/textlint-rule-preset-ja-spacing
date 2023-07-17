@@ -38,16 +38,12 @@ textlint --preset preset-ja-spacing README.md
 ### [textlint-rule-ja-space-between-half-and-full-width](./packages/textlint-rule-ja-space-between-half-and-full-width)
 
 半角文字と全角文字の間にスペースを入れるかどうかのルール。
-デフォルトはスペースを入れない。
-
-### [textlint-rule-ja-space-around-code](./packages/textlint-rule-ja-space-around-code)
-
-インラインコードの周りにスペースを入れるかを決めるルール
+デフォルトでは、スペースを入れません。
 
 ### [textlint-rule-ja-no-space-between-full-width](./packages/textlint-rule-ja-no-space-between-full-width)
 
 全角文字同士の間のスペースについてのtextlintルール。
-全角文字どうしの間にスペースを入れません。
+デフォルトでは、全角文字どうしの間にスペースを入れません。
 
 ### [textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana](packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana)
 
@@ -68,6 +64,16 @@ textlint --preset preset-ja-spacing README.md
 文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
 文中に疑問符を使用する場合はスペースを挿入しません。
 
+### [textlint-rule-ja-space-around-code](packages/textlint-rule-ja-space-around-code)
+
+インラインコードの周りをスペースで囲むかどうかを決めるルール。
+デフォルトでは、インラインコードの周りをスペースで囲みません。
+
+### [textlint-rule-ja-space-around-link](packages/textlint-rule-ja-space-around-link)
+
+リンクの周りをスペースで囲むかどうかを決めるルール。
+デフォルトでは、リンクの周りをスペースで囲みません。
+
 ## デフォルト設定
 
 デフォルトでは、次のような設定になっています。
@@ -85,24 +91,26 @@ textlint --preset preset-ja-spacing README.md
              "ja-space-after-exclamation": true,
              "ja-space-after-question": true,
              "ja-space-around-code": false,
+             "ja-space-around-link": false
          }
     }
 }
 ```
 
-またデフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+またデフォルトでは、次のルールは無効の状態でプリセットに含まれています。
 
-次のように設定することで、`textlint-rule-ja-space-around-code`のルールを有効にできます。
-ルールのオプションについての詳細は[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)のREADMEを参照してください。
+- [textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)
+- [textlint-rule-ja-space-around-link](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-link)
+
+次のように設定することで、ルールを有効にできます。
+ルールのオプションについての詳細はそれぞれのパッケージのREADMEを参照してください。
 
 ```json
 {
     "rules": {
         "preset-ja-spacing": {
-            "ja-space-around-code": {
-                "before": false,
-                "after": false
-            }
+            "ja-space-around-code": true,
+            "ja-space-around-link": true
         }
     }
 }
@@ -113,8 +121,7 @@ textlint --preset preset-ja-spacing README.md
 JTFスタイルガイドに含まれているルールと大部分は共通しています。
 以下のプリセットを利用している場合は重複するルールがあります。
 
-- [JTF日本語標準スタイルガイド（翻訳用）](https://www.jtf.jp/tips/styleguide "JTF日本語標準スタイルガイド（翻訳用）")
-- [azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.](https://github.com/azu/textlint-rule-preset-JTF-style "azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.")
+- [textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.](https://github.com/azu/textlint-rule-preset-JTF-style "azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.")
 
 ## 開発フロー
 
