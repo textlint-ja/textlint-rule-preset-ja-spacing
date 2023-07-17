@@ -121,8 +121,7 @@ textlint --preset preset-ja-spacing README.md
 JTFスタイルガイドに含まれているルールと大部分は共通しています。
 以下のプリセットを利用している場合は重複するルールがあります。
 
-- [JTF日本語標準スタイルガイド（翻訳用）](https://www.jtf.jp/tips/styleguide "JTF日本語標準スタイルガイド（翻訳用）")
-- [azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.](https://github.com/azu/textlint-rule-preset-JTF-style "azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.")
+- [textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.](https://github.com/azu/textlint-rule-preset-JTF-style "azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.")
 
 ## 開発フロー
 
