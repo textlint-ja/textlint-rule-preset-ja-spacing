@@ -6,6 +6,12 @@
 
 - [textlint-rule-preset-ja-spacing](./packages/textlint-rule-preset-ja-spacing)
 
+## Demo
+
+Visit playground:
+
+- <https://textlint-ja.github.io/textlint-rule-preset-ja-spacing/>
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
