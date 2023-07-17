@@ -5,7 +5,7 @@
     "website"
   ],
   "devDependencies": {
-    "lerna": "6.4.1"
+    "lerna": "^7.1.4"
   },
   "scripts": {
     "build": "lerna run build",
