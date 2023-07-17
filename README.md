@@ -38,16 +38,12 @@ textlint --preset preset-ja-spacing README.md
 ### [textlint-rule-ja-space-between-half-and-full-width](./packages/textlint-rule-ja-space-between-half-and-full-width)
 
 半角文字と全角文字の間にスペースを入れるかどうかのルール。
-デフォルトはスペースを入れない。
-
-### [textlint-rule-ja-space-around-code](./packages/textlint-rule-ja-space-around-code)
-
-インラインコードの周りにスペースを入れるかを決めるルール
+デフォルトでは、スペースを入れません。
 
 ### [textlint-rule-ja-no-space-between-full-width](./packages/textlint-rule-ja-no-space-between-full-width)
 
 全角文字同士の間のスペースについてのtextlintルール。
-全角文字どうしの間にスペースを入れません。
+デフォルトでは、全角文字どうしの間にスペースを入れません。
 
 ### [textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana](packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana)
 
