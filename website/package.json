@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "website",
+  "name": "textlint-rule-preset-ja-spacing-playground",
   "description": "rule playground",
   "version": "2.3.0",
   "homepage": "https://github.com/textlint-ja/textlint-rule-preset-ja-spacing",
