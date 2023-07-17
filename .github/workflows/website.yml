@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "OWNER_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $1}')" >> $GITHUB_ENV
           echo "REPO_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')" >> $GITHUB_ENV
-          echo "CURRENT_VERSION=$(node -p 'require("./package.json").version')" >> $GITHUB_ENV
+          echo "CURRENT_VERSION=$(node -p 'require("./lerna.json").version')" >> $GITHUB_ENV
       - name: Install
         run: yarn install
       - name: Build Packages
