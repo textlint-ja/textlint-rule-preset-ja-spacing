@@ -29,7 +29,7 @@
     "textlintrule"
   ],
   "devDependencies": {
-    "textlint-scripts": "^12.6.0"
+    "textlint-scripts": "^13.3.3"
   },
   "dependencies": {
     "textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana": "^2.2.0",
