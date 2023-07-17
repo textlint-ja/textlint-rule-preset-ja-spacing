@@ -1673,10 +1673,10 @@
   resolved "https://registry.yarnpkg.com/@textlint/utils/-/utils-13.3.3.tgz#27f5d4f71e586140c496d6b6b84ff220fb97bd39"
   integrity sha512-roN+K3a36RxGc0tV+8HXVXpoPomEr3LCjNI8+hFmVjOu3RsUdLTyraNBqqaghaE0KgwCPODF0seuG1hteNI8LQ==
 
-"@textlint/website-generator@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@textlint/website-generator/-/website-generator-0.16.0.tgz#419abf033560a49d62828e5b7b0999ed957b0cc8"
-  integrity sha512-0L/ClzSErlOB/gLdLwSZYePU1ybOlZWTsvlvgz7xMtRYZpWG7XrWSDYoJynDU+7aKImPwAjuRndeHj4LV/d2ZA==
+"@textlint/website-generator@^0.16.1":
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/@textlint/website-generator/-/website-generator-0.16.1.tgz#ce92360d3d1e8c908ad60bec1b14b46a690852cd"
+  integrity sha512-+pLE4pZtR8qfr79WhEuHfLo2JWIMJI1H1WN8vlPR74ICD7BzwcLpoWk35rp+MNl/1EK+fro5kal9iwJiIWezfw==
   dependencies:
     "@textlint/script-compiler" "^0.16.0"
     meow "^9.0.0"
