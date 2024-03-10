@@ -21,7 +21,7 @@ function reporter(context) {
             const matchAfter = /？( )[^\n]/;
             matchCaptureGroupAll(text, matchAfter).forEach(match => {
                 const {index} = match;
-                return report(node, new RuleError("文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。", {
+                return report(node, new RuleError("文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。", {
                     index: index,
                     fix: fixer.replaceTextRange([index, index + 1], "　")
                 }));
