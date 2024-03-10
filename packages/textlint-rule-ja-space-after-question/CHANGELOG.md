@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.3.0...v2.3.1) (2024-03-10)
+
+
+### Bug Fixes
+
+* fix space after question rule's error message ([#61](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues/61)) ([614c35c](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/commit/614c35cf791e7c4e8c2730b255eedd6dc745d503))
+
+
+
+
+
 # [2.2.0](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.1.3...v2.2.0) (2021-07-22)
 
 **Note:** Version bump only for package textlint-rule-ja-space-after-question

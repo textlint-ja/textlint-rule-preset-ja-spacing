@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-space-between-half-and-full-width",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "半角文字と全角文字のスペースについてのtextlintルール",
   "main": "lib/index.js",
   "files": [
