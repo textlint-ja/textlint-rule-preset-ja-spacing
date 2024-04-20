@@ -49,13 +49,17 @@ textlint --rule ja-space-between-half-and-full-width README.md
       - 対象としたい物のみ指定する
       - 例えば、数値と句読点（、。）を例外として扱いたい場合は以下
         - `["alphabets"]`
-- （非推奨）`exceptPunctuation`: `boolean`
-    - デフォルト: `true`
-    - 句読点（、。）を例外として扱うかどうか
-    - 代わりに `space` オプションを用いて `["alphabets", "numbers"]` と指定する
 - `lintStyledNode`: `boolean`
     - デフォルト: `false`
     - プレーンテキスト以外(リンクや画像のキャプションなど)を lint の対象とするかどうか (プレーンテキストの判断基準は [textlint/textlint-rule-helper: This is helper library for creating textlint rule](https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean) を参照してください)
+- `allows: string[]`
+    - デフォルト: `[]`
+    - 例外として扱う文字列の配列
+    - [RegExp-like String](https://github.com/textlint/regexp-string-matcher?tab=readme-ov-file#regexp-like-string)も指定可能
+- （非推奨）`exceptPunctuation`: `boolean`
+  - デフォルト: `true`
+  - 句読点（、。）を例外として扱うかどうか
+  - 代わりに `space` オプションを用いて `["alphabets", "numbers"]` と指定する
 
 ```json
 {
@@ -83,6 +87,13 @@ textlint --rule ja-space-between-half-and-full-width README.md
             space: []
         }
 
+スペースは必須だが、`Eコーマス`だけはスペースなしを許可する。
+
+        text: "例外的にEコーマスはスペースなしでも通す",
+        options: {
+            space: "always",
+            allows: ["Eコーマス"]
+        }
 
 ## Changelog
 

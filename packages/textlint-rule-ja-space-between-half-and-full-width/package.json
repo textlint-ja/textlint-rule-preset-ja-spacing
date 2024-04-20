@@ -29,6 +29,7 @@
     "textlintrule"
   ],
   "devDependencies": {
+    "@textlint/regexp-string-matcher": "^2.0.2",
     "textlint-scripts": "^13.3.3"
   },
   "dependencies": {
