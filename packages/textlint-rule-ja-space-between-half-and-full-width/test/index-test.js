@@ -144,7 +144,16 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                     "/(\\w)言語/"
                 ]
             }
-        }
+        },
+        {
+            text: "E コーマス",
+            options: {
+                space: "never",
+                allows: [
+                    "E コーマス"
+                ]
+            }
+        },
     ],
     invalid: [
         {
