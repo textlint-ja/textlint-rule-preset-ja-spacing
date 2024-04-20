@@ -125,7 +125,26 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: ["alphabets", "punctuation"]
             }
-       }
+       },
+        // allows,
+        {
+            text: "Eコーマス",
+            options: {
+                space: "always",
+                allows: [
+                    "Eコーマス"
+                ]
+            }
+        },
+        {
+            text: "これは A言語、B言語、C言語です。",
+            options: {
+                space: "always",
+                allows: [
+                    "/(\\w)言語/"
+                ]
+            }
+        }
     ],
     invalid: [
         {
