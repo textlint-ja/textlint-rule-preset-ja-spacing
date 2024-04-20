@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.3.1...v2.4.0) (2024-04-20)
+
+
+### Features
+
+* **ja-space-between-half-and-full-width:** add `allows` option ([#64](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues/64)) ([76da132](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/commit/76da13295e7a0a5746e707f0cc1d3ef87ed2e1cb))
+
+
+
+
+
 ## [2.3.1](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/compare/v2.3.0...v2.3.1) (2024-03-10)
 
 

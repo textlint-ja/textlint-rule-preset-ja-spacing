@@ -2,7 +2,7 @@
   "private": true,
   "name": "textlint-rule-preset-ja-spacing-playground",
   "description": "rule playground",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "homepage": "https://github.com/textlint-ja/textlint-rule-preset-ja-spacing",
   "scripts": {
     "textlint": "textlint ../README.md",
@@ -14,6 +14,6 @@
     "@textlint/website-generator": "^0.16.1",
     "textlint": "^13.3.3",
     "textlint-filter-rule-comments": "^1.2.2",
-    "textlint-rule-preset-ja-spacing": "^2.3.1"
+    "textlint-rule-preset-ja-spacing": "^2.4.0"
   }
 }
