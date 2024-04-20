@@ -128,10 +128,10 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         },
         // allows,
         {
-            text: "Eコーマス",
+            text: "Eコマース",
             options: {
                 space: "always",
-                allows: ["Eコーマス"]
+                allows: ["Eコマース"]
             }
         },
         {
@@ -142,10 +142,10 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             }
         },
         {
-            text: "E コーマス",
+            text: "E コマース",
             options: {
                 space: "never",
-                allows: ["E コーマス"]
+                allows: ["E コマース"]
             }
         }
     ],
