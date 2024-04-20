@@ -87,12 +87,12 @@ textlint --rule ja-space-between-half-and-full-width README.md
             space: []
         }
 
-スペースは必須だが、`Eコーマス`だけはスペースなしを許可する。
+スペースは必須だが、`Eコマース`だけはスペースなしを許可する。
 
-        text: "例外的にEコーマスはスペースなしでも通す",
+        text: "例外的にEコマースはスペースなしでも通す",
         options: {
             space: "always",
-            allows: ["Eコーマス"]
+            allows: ["Eコマース"]
         }
 
 ## Changelog
