@@ -4,15 +4,15 @@ const isJapaneseChar = (text) => {
     return /^(?:[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ])$/.test(text);
 };
 const defaultOptions = {
-    "before": false,
-    "after": false
+    before: false,
+    after: false
 };
 function reporter(context, options) {
-    const {Syntax, RuleError, report, fixer, getSource} = context;
+    const { Syntax, RuleError, report, fixer, getSource } = context;
     const allowBeforeSpace = options.before || defaultOptions.before;
     const allowAfterSpace = options.after || defaultOptions.after;
     return {
-        [Syntax.Code](node){
+        [Syntax.Code](node) {
             const nodeText = getSource(node);
             // |  `code`  |
             // InlineCodeの前後2文字文を取得
@@ -32,17 +32,23 @@ function reporter(context, options) {
             if (existBeforeChar) {
                 if (allowBeforeSpace) {
                     if (beforeChar !== " " && isJapaneseChar(beforeChar)) {
-                        report(node, new RuleError("インラインコードの前にスペースを入れてください。", {
-                            index: -1,// before `
-                            fix: fixer.insertTextBeforeRange([0, 0], " ")
-                        }));
+                        report(
+                            node,
+                            new RuleError("インラインコードの前にスペースを入れてください。", {
+                                index: -1, // before `
+                                fix: fixer.insertTextBeforeRange([0, 0], " ")
+                            })
+                        );
                     }
                 } else {
                     if (beforeChar === " " && isJapaneseChar(beforeBeforeChar)) {
-                        report(node, new RuleError("インラインコードの前にスペースを入れません。", {
-                            index: -1, // before `
-                            fix: fixer.replaceTextRange([-1, 0], "")
-                        }));
+                        report(
+                            node,
+                            new RuleError("インラインコードの前にスペースを入れません。", {
+                                index: -1, // before `
+                                fix: fixer.replaceTextRange([-1, 0], "")
+                            })
+                        );
                     }
                 }
             }
@@ -50,22 +56,28 @@ function reporter(context, options) {
             if (existAfterChar) {
                 if (allowAfterSpace) {
                     if (afterChar !== " " && isJapaneseChar(afterChar)) {
-                        report(node, new RuleError("インラインコードの後にスペースを入れてください。", {
-                            index: nodeText.length,
-                            fix: fixer.insertTextAfterRange([0, nodeText.length], " ")
-                        }));
+                        report(
+                            node,
+                            new RuleError("インラインコードの後にスペースを入れてください。", {
+                                index: nodeText.length,
+                                fix: fixer.insertTextAfterRange([0, nodeText.length], " ")
+                            })
+                        );
                     }
                 } else {
                     if (afterChar === " " && isJapaneseChar(afterAfterChar)) {
-                        report(node, new RuleError("インラインコードの後にスペースを入れません。", {
-                            index: nodeText.length + 1,
-                            fix: fixer.replaceTextRange([nodeText.length, nodeText.length + 1], "")
-                        }));
+                        report(
+                            node,
+                            new RuleError("インラインコードの後にスペースを入れません。", {
+                                index: nodeText.length + 1,
+                                fix: fixer.replaceTextRange([nodeText.length, nodeText.length + 1], "")
+                            })
+                        );
                     }
                 }
             }
         }
-    }
+    };
 }
 module.exports = {
     linter: reporter,

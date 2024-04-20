@@ -13,7 +13,7 @@ tester.run("全角文字と半角文字の間", rule, {
             text: "JTF標準",
             options: {
                 space: "never"
-            },
+            }
         },
         "This is a pen.",
         "1. `./*.*`にマッチするファイルを取得 = Readable Stream",
@@ -49,13 +49,13 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             text: "# JTF 標準",
             options: {
                 space: "never"
-            },
+            }
         },
         {
             text: "# JTF 標準",
             options: {
                 space: []
-            },
+            }
         },
         // except
         {
@@ -63,13 +63,13 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "always",
                 exceptPunctuation: true
-            },
+            }
         },
         {
             text: "Always これは、Exception。",
             options: {
                 space: ["alphabets", "numbers"]
-            },
+            }
         },
         // 入れても良い
         {
@@ -77,13 +77,13 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             options: {
                 space: "always",
                 exceptPunctuation: true
-            },
+            }
         },
         {
             text: "Always これは 、 Exception 。",
             options: {
                 space: ["alphabets", "numbers"]
-            },
+            }
         },
         {
             text: "Never:これは、 Exception 。",
@@ -109,51 +109,45 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "Never:これは、Exception。",
             options: {
-                space: [],
+                space: []
             }
         },
         // ignoreAlphabets
-       {
+        {
             text: "最新のversionは 1.2.3 です。",
             options: {
                 space: ["numbers", "punctuation"]
             }
-       },
+        },
         // ignoreNumbers
-       {
+        {
             text: "最新の version は1.2.3です。",
             options: {
                 space: ["alphabets", "punctuation"]
             }
-       },
+        },
         // allows,
         {
             text: "Eコーマス",
             options: {
                 space: "always",
-                allows: [
-                    "Eコーマス"
-                ]
+                allows: ["Eコーマス"]
             }
         },
         {
             text: "これは A言語、B言語、C言語です。",
             options: {
                 space: "always",
-                allows: [
-                    "/(\\w)言語/"
-                ]
+                allows: ["/(\\w)言語/"]
             }
         },
         {
             text: "E コーマス",
             options: {
                 space: "never",
-                allows: [
-                    "E コーマス"
-                ]
+                allows: ["E コーマス"]
             }
-        },
+        }
     ],
     invalid: [
         {
@@ -195,19 +189,14 @@ Pull Request、コミットのやりかたなどが書かれています。`,
         {
             text: "これは Unicode",
             output: "これはUnicode",
-            errors: [
-                {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
-            ]
+            errors: [{ message: "原則として、全角文字と半角文字の間にスペースを入れません。" }]
         },
         {
             text: "これは　Unicode",
             output: "これはUnicode",
-            errors: [
-                {message: "原則として、全角文字と半角文字の間にスペースを入れません。"}
-            ]
+            errors: [{ message: "原則として、全角文字と半角文字の間にスペースを入れません。" }]
         },
         {
-
             text: "aaa と bbb 、 ccc と ddd",
             output: "aaaとbbb 、 cccとddd",
             options: {

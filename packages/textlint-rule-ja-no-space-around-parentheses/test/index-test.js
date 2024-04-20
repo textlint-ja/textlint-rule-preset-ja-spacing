@@ -14,17 +14,13 @@ tester.run("かっこ類と隣接する文字の間のスペースの有無", ru
 というルールがあるだけとも言えます。
 `,
         "[テスト 「文章」 です](https://example)", // ignore Link
-        "[テスト 「文章」 です][]" +
-        "\n\n" +
-        "[テスト 「文章」 です]: https://example.com" // ignore ReferenceDef
+        "[テスト 「文章」 です][]" + "\n\n" + "[テスト 「文章」 です]: https://example.com" // ignore ReferenceDef
     ],
     invalid: [
         {
             text: "「 ダメ」",
             output: "「ダメ」",
-            errors: [
-                {message: "かっこの外側、内側ともにスペースを入れません。"}
-            ]
+            errors: [{ message: "かっこの外側、内側ともにスペースを入れません。" }]
         },
         {
             text: "これは 「ダメ」です",
@@ -36,7 +32,8 @@ tester.run("かっこ類と隣接する文字の間のスペースの有無", ru
                     column: 4
                 }
             ]
-        }, {
+        },
+        {
             text: `TEST
 
 - TODO

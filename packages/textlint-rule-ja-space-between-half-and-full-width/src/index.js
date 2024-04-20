@@ -9,11 +9,11 @@ import { matchCaptureGroupAll } from "match-index";
 import { matchPatterns } from "@textlint/regexp-string-matcher";
 
 const PunctuationRegExp = /[。、]/;
-const ZenRegExpStr = '[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]';
+const ZenRegExpStr = "[、。]|[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ]";
 const defaultSpaceOptions = {
     alphabets: false,
     numbers: false,
-    punctuation: false,
+    punctuation: false
 };
 const defaultOptions = {
     // プレーンテキスト以外を対象とするか See https://github.com/textlint/textlint-rule-helper#rulehelperisplainstrnodenode-boolean
@@ -34,9 +34,9 @@ function reporter(context, options = {}) {
      * @returns {Object}
      */
     const parseSpaceOption = (opt, exceptPunctuation) => {
-        if (typeof opt === 'string') {
+        if (typeof opt === "string") {
             assert(opt === "always" || opt === "never", `"space" options should be "always", "never" or an array.`);
-            
+
             if (opt === "always") {
                 if (exceptPunctuation === false) {
                     return { ...defaultSpaceOptions, alphabets: true, numbers: true, punctuation: true };
@@ -55,19 +55,18 @@ function reporter(context, options = {}) {
                 opt.every((v) => Object.keys(defaultSpaceOptions).includes(v)),
                 `Only "alphabets", "numbers", "punctuation" can be included in the array.`
             );
-            const userOptions = Object.fromEntries(opt.map(key => [key, true]));
+            const userOptions = Object.fromEntries(opt.map((key) => [key, true]));
             return { ...defaultSpaceOptions, ...userOptions };
         }
-        
+
         return defaultSpaceOptions;
-    }
-    
+    };
+
     const { Syntax, RuleError, report, fixer, getSource } = context;
     const helper = new RuleHelper();
     const spaceOption = parseSpaceOption(options.space, options.exceptPunctuation);
-    const lintStyledNode = options.lintStyledNode !== undefined
-        ? options.lintStyledNode
-        : defaultOptions.lintStyledNode;
+    const lintStyledNode =
+        options.lintStyledNode !== undefined ? options.lintStyledNode : defaultOptions.lintStyledNode;
     const allows = options.allows !== undefined ? options.allows : defaultOptions.allows;
     /**
      * `text`を対象に例外オプションを取り除くfilter関数を返す
@@ -95,10 +94,10 @@ function reporter(context, options = {}) {
                 if (allow.startIndex <= match.index && match.index <= allow.endIndex) {
                     return true;
                 }
-                return false
-            })
+                return false;
+            });
             return !isAllowed;
-        }
+        };
     };
     // Never: アルファベットと全角の間はスペースを入れない
     const noSpaceBetween = (node, text) => {
@@ -106,15 +105,18 @@ function reporter(context, options = {}) {
         const betweenZenAndHan = matchCaptureGroupAll(text, new RegExp(`(?:${ZenRegExpStr})([ 　])[A-Za-z0-9]`));
         const reportMatch = (match) => {
             const { index } = match;
-            report(node, new RuleError("原則として、全角文字と半角文字の間にスペースを入れません。", {
-                index: match.index,
-                fix: fixer.replaceTextRange([index, index + 1], "")
-            }));
+            report(
+                node,
+                new RuleError("原則として、全角文字と半角文字の間にスペースを入れません。", {
+                    index: match.index,
+                    fix: fixer.replaceTextRange([index, index + 1], "")
+                })
+            );
         };
         betweenHanAndZen.filter(createFilter(text, 1)).forEach(reportMatch);
         betweenZenAndHan.filter(createFilter(text, -1)).forEach(reportMatch);
     };
-    
+
     // Always: アルファベットと全角の間はスペースを入れる
     const needSpaceBetween = (node, text, options) => {
         /**
@@ -124,31 +126,34 @@ function reporter(context, options = {}) {
          * @returns {Object}
          */
         const generateRegExp = (opt, btwHanAndZen = true) => {
-            const alphabets = opt.alphabets ? 'A-Za-z' : '';
-            const numbers = opt.numbers ? '0-9' : '';
-            
+            const alphabets = opt.alphabets ? "A-Za-z" : "";
+            const numbers = opt.numbers ? "0-9" : "";
+
             let expStr;
             if (btwHanAndZen) {
                 expStr = `([${alphabets}${numbers}])(?:${ZenRegExpStr})`;
             } else {
                 expStr = `(${ZenRegExpStr})[${alphabets}${numbers}]`;
             }
-            
+
             return new RegExp(expStr);
         };
-        
+
         const betweenHanAndZenRegExp = generateRegExp(options);
         const betweenZenAndHanRegExp = generateRegExp(options, false);
-        const errorMsg = '原則として、全角文字と半角文字の間にスペースを入れます。';
-        
+        const errorMsg = "原則として、全角文字と半角文字の間にスペースを入れます。";
+
         const betweenHanAndZen = matchCaptureGroupAll(text, betweenHanAndZenRegExp);
         const betweenZenAndHan = matchCaptureGroupAll(text, betweenZenAndHanRegExp);
         const reportMatch = (match) => {
             const { index } = match;
-            report(node, new RuleError(errorMsg, {
-                index: match.index,
-                fix: fixer.replaceTextRange([index + 1, index + 1], " ")
-            }));
+            report(
+                node,
+                new RuleError(errorMsg, {
+                    index: match.index,
+                    fix: fixer.replaceTextRange([index + 1, index + 1], " ")
+                })
+            );
         };
         betweenHanAndZen.filter(createFilter(text, 1)).forEach(reportMatch);
         betweenZenAndHan.filter(createFilter(text, 0)).forEach(reportMatch);
@@ -159,15 +164,15 @@ function reporter(context, options = {}) {
                 return;
             }
             const text = getSource(node);
-            
-            const noSpace = (key) => key === 'punctuation' ? true : !spaceOption[key];
+
+            const noSpace = (key) => (key === "punctuation" ? true : !spaceOption[key]);
             if (Object.keys(spaceOption).every(noSpace)) {
                 noSpaceBetween(node, text);
             } else {
                 needSpaceBetween(node, text, spaceOption);
             }
         }
-    }
+    };
 }
 
 module.exports = {
