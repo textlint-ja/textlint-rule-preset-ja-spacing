@@ -29,10 +29,10 @@
     "textlintrule"
   ],
   "devDependencies": {
-    "@textlint/regexp-string-matcher": "^2.0.2",
     "textlint-scripts": "^13.3.3"
   },
   "dependencies": {
+    "@textlint/regexp-string-matcher": "^2.0.2",
     "match-index": "^1.0.1",
     "textlint-rule-helper": "^2.2.4"
   }
