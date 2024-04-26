@@ -32,7 +32,6 @@
     "textlint-scripts": "^13.3.3"
   },
   "dependencies": {
-    "match-index": "^1.0.3",
     "textlint-rule-helper": "^2.2.4"
   }
 }
