@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@textlint/regexp-string-matcher": "^2.0.2",
-    "match-index": "^1.0.1",
     "textlint-rule-helper": "^2.2.4"
   }
 }
