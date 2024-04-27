@@ -5,7 +5,6 @@ const assert = require("assert");
  全角文字と半角文字の間にスペースを入れるかどうか
  */
 import { RuleHelper } from "textlint-rule-helper";
-import { matchCaptureGroupAll } from "match-index";
 import { matchPatterns } from "@textlint/regexp-string-matcher";
 
 const PunctuationRegExp = /[。、]/;
@@ -71,7 +70,7 @@ function reporter(context, options = {}) {
     /**
      * `text`を対象に例外オプションを取り除くfilter関数を返す
      * @param {string} text テスト対象のテキスト全体
-     * @param {number} padding +1 or -1
+     * @param {number} padding 例外文字までのオフセット
      * @returns {function(*, *)}
      */
     const createFilter = (text, padding) => {
@@ -101,20 +100,20 @@ function reporter(context, options = {}) {
     };
     // Never: アルファベットと全角の間はスペースを入れない
     const noSpaceBetween = (node, text) => {
-        const betweenHanAndZen = matchCaptureGroupAll(text, new RegExp(`[A-Za-z0-9]([ 　])(?:${ZenRegExpStr})`));
-        const betweenZenAndHan = matchCaptureGroupAll(text, new RegExp(`(?:${ZenRegExpStr})([ 　])[A-Za-z0-9]`));
+        const betweenHanAndZen = text.matchAll(new RegExp(`[A-Za-z0-9]([ 　])(?:${ZenRegExpStr})`, "g"));
+        const betweenZenAndHan = text.matchAll(new RegExp(`(?:${ZenRegExpStr})([ 　])[A-Za-z0-9]`, "g"));
         const reportMatch = (match) => {
-            const { index } = match;
+            const indexOneBased = match.index + 1;
             report(
                 node,
                 new RuleError("原則として、全角文字と半角文字の間にスペースを入れません。", {
-                    index: match.index,
-                    fix: fixer.replaceTextRange([index, index + 1], "")
+                    index: indexOneBased,
+                    fix: fixer.replaceTextRange([indexOneBased, indexOneBased + 1], "")
                 })
             );
         };
-        betweenHanAndZen.filter(createFilter(text, 1)).forEach(reportMatch);
-        betweenZenAndHan.filter(createFilter(text, -1)).forEach(reportMatch);
+        Array.from(betweenHanAndZen).filter(createFilter(text, 2)).forEach(reportMatch);
+        Array.from(betweenZenAndHan).filter(createFilter(text, 0)).forEach(reportMatch);
     };
 
     // Always: アルファベットと全角の間はスペースを入れる
@@ -136,27 +135,27 @@ function reporter(context, options = {}) {
                 expStr = `(${ZenRegExpStr})[${alphabets}${numbers}]`;
             }
 
-            return new RegExp(expStr);
+            return new RegExp(expStr, "g");
         };
 
         const betweenHanAndZenRegExp = generateRegExp(options);
         const betweenZenAndHanRegExp = generateRegExp(options, false);
         const errorMsg = "原則として、全角文字と半角文字の間にスペースを入れます。";
 
-        const betweenHanAndZen = matchCaptureGroupAll(text, betweenHanAndZenRegExp);
-        const betweenZenAndHan = matchCaptureGroupAll(text, betweenZenAndHanRegExp);
+        const betweenHanAndZen = text.matchAll(betweenHanAndZenRegExp);
+        const betweenZenAndHan = text.matchAll(betweenZenAndHanRegExp);
         const reportMatch = (match) => {
             const { index } = match;
             report(
                 node,
                 new RuleError(errorMsg, {
-                    index: match.index,
+                    index: index,
                     fix: fixer.replaceTextRange([index + 1, index + 1], " ")
                 })
             );
         };
-        betweenHanAndZen.filter(createFilter(text, 1)).forEach(reportMatch);
-        betweenZenAndHan.filter(createFilter(text, 0)).forEach(reportMatch);
+        Array.from(betweenHanAndZen).filter(createFilter(text, 1)).forEach(reportMatch);
+        Array.from(betweenZenAndHan).filter(createFilter(text, 0)).forEach(reportMatch);
     };
     return {
         [Syntax.Str](node) {
