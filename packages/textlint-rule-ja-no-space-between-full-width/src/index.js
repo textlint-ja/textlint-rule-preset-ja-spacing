@@ -6,7 +6,6 @@
  ただしカタカナ複合語の場合を除きます。
  */
 import { RuleHelper } from "textlint-rule-helper";
-import { matchAll } from "match-index";
 import regx from "regx";
 const rx = regx("g");
 const japaneseRegExp =
@@ -24,23 +23,21 @@ function reporter(context) {
             // 全角同士の間は半角スペースを入れない
             const matchReg = rx`${japaneseRegExp}( )${japaneseRegExp}`;
             const katakakana = /[ァ-ヶ]( )[ァ-ヶ]/;
-            matchAll(text, matchReg).forEach((match) => {
-                const { input, captureGroups } = match;
+            for (const match of text.matchAll(matchReg)) {
+                const input = match[1];
                 // ただしカタカナ複合語の場合を除きます。
                 if (katakakana.test(input)) {
                     return;
                 }
-                captureGroups.forEach((captureGroup) => {
-                    const index = captureGroup.index;
-                    report(
-                        node,
-                        new RuleError("原則として、全角文字どうしの間にスペースを入れません。", {
-                            index: index,
-                            fix: fixer.replaceTextRange([index, index + 1], "")
-                        })
-                    );
-                });
-            });
+                const indexOneBased = match.index + 1;
+                report(
+                    node,
+                    new RuleError("原則として、全角文字どうしの間にスペースを入れません。", {
+                        index: indexOneBased,
+                        fix: fixer.replaceTextRange([indexOneBased, indexOneBased + 1], "")
+                    })
+                );
+            }
         }
     };
 }
