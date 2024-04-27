@@ -5,7 +5,6 @@
  かっこの外側、内側ともにスペースを入れません。
  */
 import { RuleHelper } from "textlint-rule-helper";
-import { matchCaptureGroupAll } from "match-index";
 
 const brackets = ["\\[", "\\]", "（", "）", "［", "］", "「", "」", "『", "』"];
 
@@ -26,29 +25,29 @@ function reporter(context) {
             const text = getSource(node);
             // 左にスペース
             leftBrackets.forEach((pattern) => {
-                matchCaptureGroupAll(text, pattern).forEach((match) => {
-                    const { index } = match;
+                for (const match of text.matchAll(pattern)) {
+                    const indexZeroBased = match.index;
                     report(
                         node,
                         new RuleError("かっこの外側、内側ともにスペースを入れません。", {
-                            index: index,
-                            fix: fixer.replaceTextRange([index, index + 1], "")
+                            index: indexZeroBased,
+                            fix: fixer.replaceTextRange([indexZeroBased, indexZeroBased + 1], "")
                         })
                     );
-                });
+                }
             });
             // 右にスペース
             rightBrackets.forEach((pattern) => {
-                matchCaptureGroupAll(text, pattern).forEach((match) => {
-                    const { index, text } = match;
+                for (const match of text.matchAll(pattern)) {
+                    const indexOnebased = match.index + 1;
                     report(
                         node,
                         new RuleError("かっこの外側、内側ともにスペースを入れません。", {
-                            index: index,
-                            fix: fixer.replaceTextRange([index, index + 1], "")
+                            index: indexOnebased,
+                            fix: fixer.replaceTextRange([indexOnebased, indexOnebased + 1], "")
                         })
                     );
-                });
+                }
             });
         }
     };
