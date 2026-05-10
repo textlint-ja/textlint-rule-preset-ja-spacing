@@ -75,10 +75,20 @@ textlint --preset preset-ja-spacing README.md
 インラインコードの周りをスペースで囲むかどうかを決めるルール。
 デフォルトでは、インラインコードの周りをスペースで囲みません。
 
+### [textlint-rule-ja-space-around-emphasis](packages/textlint-rule-ja-space-around-emphasis)
+
+強調の周りをスペースで囲むかどうかを決めるルール。
+デフォルトでは、強調の周りをスペースで囲みません。
+
 ### [textlint-rule-ja-space-around-link](packages/textlint-rule-ja-space-around-link)
 
 リンクの周りをスペースで囲むかどうかを決めるルール。
 デフォルトでは、リンクの周りをスペースで囲みません。
+
+### [textlint-rule-ja-space-around-strong](packages/textlint-rule-ja-space-around-strong)
+
+強い強調の周りをスペースで囲むかどうかを決めるルール。
+デフォルトでは、強い強調の周りをスペースで囲みません。
 
 ## デフォルト設定
 
@@ -97,7 +107,9 @@ textlint --preset preset-ja-spacing README.md
              "ja-space-after-exclamation": true,
              "ja-space-after-question": true,
              "ja-space-around-code": false,
-             "ja-space-around-link": false
+             "ja-space-around-emphasis": false,
+             "ja-space-around-link": false,
+             "ja-space-around-strong": false
          }
     }
 }
@@ -106,7 +118,9 @@ textlint --preset preset-ja-spacing README.md
 またデフォルトでは、次のルールは無効の状態でプリセットに含まれています。
 
 - [textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)
+- [textlint-rule-ja-space-around-emphasis](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-emphasis)
 - [textlint-rule-ja-space-around-link](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-link)
+- [textlint-rule-ja-space-around-strong](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-strong)
 
 次のように設定することで、ルールを有効にできます。
 ルールのオプションについての詳細はそれぞれのパッケージのREADMEを参照してください。
@@ -116,7 +130,9 @@ textlint --preset preset-ja-spacing README.md
     "rules": {
         "preset-ja-spacing": {
             "ja-space-around-code": true,
-            "ja-space-around-link": true
+            "ja-space-around-emphasis": true,
+            "ja-space-around-link": true,
+            "ja-space-around-strong": true
         }
     }
 }

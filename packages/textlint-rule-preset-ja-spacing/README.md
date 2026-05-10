@@ -36,7 +36,12 @@ textlint --preset ja-spacing README.md
 
 ## Options
 
-デフォルトでは、[textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)は無効になっています。
+デフォルトでは、次のルールは無効になっています。
+
+- [textlint-rule-ja-space-around-code](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-code)
+- [textlint-rule-ja-space-around-emphasis](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-emphasis)
+- [textlint-rule-ja-space-around-link](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-link)
+- [textlint-rule-ja-space-around-strong](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/tree/master/packages/textlint-rule-ja-space-around-strong)
 
 次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。
 
@@ -45,6 +50,18 @@ textlint --preset ja-spacing README.md
     "rules": {
         "preset-ja-spacing": {
             "ja-space-around-code": {
+                "before": false,
+                "after": false
+            },
+            "ja-space-around-emphasis": {
+                "before": false,
+                "after": false
+            },
+            "ja-space-around-link": {
+                "before": false,
+                "after": false
+            },
+            "ja-space-around-strong": {
                 "before": false,
                 "after": false
             }
