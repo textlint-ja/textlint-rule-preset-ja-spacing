@@ -22,9 +22,9 @@ module.exports = {
         },
         "ja-space-after-exclamation": true,
         "ja-space-after-question": true,
-        "ja-space-around-code": false,
-        "ja-space-around-emphasis": false,
-        "ja-space-around-link": false,
-        "ja-space-around-strong": false
+        "ja-space-around-code": true,
+        "ja-space-around-emphasis": true,
+        "ja-space-around-link": true,
+        "ja-space-around-strong": true
     }
 };
