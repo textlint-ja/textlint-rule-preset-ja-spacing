@@ -10,7 +10,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        node-version: [ 20, 22 ]
+        node-version: [ 22, 24 ]
     steps:
       - name: checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
