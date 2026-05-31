@@ -5,25 +5,34 @@ on:
       - master
   workflow_dispatch:
 
+# 既定の権限は読み取りのみにし、必要な権限はジョブ単位で付与する
+permissions:
+  contents: read
+
+# 同時に複数のデプロイが走らないようにする
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3.9.1
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 18
           cache: "yarn"
+      - name: Setup Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Set Env
         run: |
-          echo "OWNER_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $1}')" >> $GITHUB_ENV
-          echo "REPO_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')" >> $GITHUB_ENV
-          echo "CURRENT_VERSION=$(node -p 'require("./lerna.json").version')" >> $GITHUB_ENV
+          echo "OWNER_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $1}')" >> "$GITHUB_ENV"
+          echo "REPO_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')" >> "$GITHUB_ENV"
+          echo "CURRENT_VERSION=$(node -p 'require("./lerna.json").version')" >> "$GITHUB_ENV"
       - name: Install
         run: yarn install
       - name: Build Packages
@@ -35,8 +44,22 @@ jobs:
           REPO_NAME: ${{ env.REPO_NAME }}
           CURRENT_VERSION: ${{ env.CURRENT_VERSION }}
         working-directory: website/
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./website/dist
+          path: ./website/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # GitHub Pages へのデプロイに必要な権限を deploy ジョブのみに付与する
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
