@@ -5,7 +5,7 @@
     "website"
   ],
   "devDependencies": {
-    "lerna": "^8.1.9",
+    "lerna": "^9.0.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5"
   },
@@ -17,6 +17,11 @@
     "versionup:minor": "lerna version minor --conventional-commits",
     "versionup:major": "lerna version major --conventional-commits",
     "release": "lerna publish from-package",
+    "ci:release": "lerna publish from-package --yes",
+    "ci:versionup:major": "lerna version major --no-push --no-git-tag-version --yes && yarn run commit-version",
+    "ci:versionup:minor": "lerna version minor --no-push --no-git-tag-version --yes && yarn run commit-version",
+    "ci:versionup:patch": "lerna version patch --no-push --no-git-tag-version --yes && yarn run commit-version",
+    "commit-version": "git add . && git commit -m \"chore(release): v$(node -p 'require(\"./lerna.json\").version')\"",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepare": "git config --local core.hooksPath .githooks"
   },
