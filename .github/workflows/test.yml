@@ -4,18 +4,22 @@ env:
   CI: true
 jobs:
   test:
-    name: "Test on Node.js ${{ matrix.node_version }}"
+    name: "Test on Node.js ${{ matrix.node-version }}"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
-        node-version: [ 18, 20 ]
+        node-version: [ 22, 24 ]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
-      - name: setup Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v3
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
-          node-version: ${{ matrix.node_version }}
+          persist-credentials: false
+      - name: setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ matrix.node-version }}
           cache: "yarn"
       - name: Install
         run: yarn install
