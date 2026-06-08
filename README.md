@@ -60,6 +60,10 @@ textlint --preset preset-ja-spacing README.md
 
 かっこの外側、内側ともにスペースを入れないようにするルール
 
+### [textlint-rule-ja-no-space-around-slash](packages/textlint-rule-ja-no-space-around-slash)
+
+スラッシュの前後にスペースを入れないようにするルール。
+
 ### [textlint-rule-ja-space-after-exclamation](packages/textlint-rule-ja-space-after-exclamation)
 
 文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
@@ -100,6 +104,7 @@ textlint --preset preset-ja-spacing README.md
         "preset-ja-spacing": {
              "ja-nakaguro-or-halfwidth-space-between-katakana": true,
              "ja-no-space-around-parentheses": true,
+             "ja-no-space-around-slash": true,
              "ja-no-space-between-full-width": true,
              "ja-space-between-half-and-full-width": {
                  "space": "never"

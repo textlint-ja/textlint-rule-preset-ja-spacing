@@ -4,6 +4,7 @@ module.exports = {
     rules: {
         "ja-nakaguro-or-halfwidth-space-between-katakana": require("textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana"),
         "ja-no-space-around-parentheses": require("textlint-rule-ja-no-space-around-parentheses"),
+        "ja-no-space-around-slash": require("textlint-rule-ja-no-space-around-slash"),
         "ja-no-space-between-full-width": require("textlint-rule-ja-no-space-between-full-width"),
         "ja-space-between-half-and-full-width": require("textlint-rule-ja-space-between-half-and-full-width"),
         "ja-space-after-exclamation": require("textlint-rule-ja-space-after-exclamation"),
@@ -16,6 +17,7 @@ module.exports = {
     rulesConfig: {
         "ja-nakaguro-or-halfwidth-space-between-katakana": true,
         "ja-no-space-around-parentheses": true,
+        "ja-no-space-around-slash": true,
         "ja-no-space-between-full-width": true,
         "ja-space-between-half-and-full-width": {
             space: "never"
