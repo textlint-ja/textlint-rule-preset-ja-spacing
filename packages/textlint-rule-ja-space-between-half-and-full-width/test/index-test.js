@@ -9,6 +9,7 @@ tester.run("全角文字と半角文字の間", rule, {
         "JTF標準",
         "これも、OK。",
         "最新のversionは1.2.3です。",
+        "これはstruct / enumです。",
         {
             text: "JTF標準",
             options: {
@@ -42,6 +43,12 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             text: "最新の version は 1.2.3 です。",
             options: {
                 space: ["alphabets", "numbers"]
+            }
+        },
+        {
+            text: "これは struct / enum です。",
+            options: {
+                space: "always"
             }
         },
         // ignore
@@ -197,6 +204,18 @@ Pull Request、コミットのやりかたなどが書かれています。`,
             errors: [{ message: "原則として、全角文字と半角文字の間にスペースを入れません。" }]
         },
         {
+            text: "これは struct / enum です。",
+            output: "これはstruct / enumです。",
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。"
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れません。"
+                }
+            ]
+        },
+        {
             text: "aaa と bbb 、 ccc と ddd",
             output: "aaaとbbb 、 cccとddd",
             options: {
@@ -277,6 +296,21 @@ Pull Request、コミットのやりかたなどが書かれています。`,
                 {
                     message: "原則として、全角文字と半角文字の間にスペースを入れます。",
                     column: 3
+                }
+            ]
+        },
+        {
+            text: "これはstruct / enumです。",
+            output: "これは struct / enum です。",
+            options: {
+                space: "always"
+            },
+            errors: [
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。"
+                },
+                {
+                    message: "原則として、全角文字と半角文字の間にスペースを入れます。"
                 }
             ]
         },
