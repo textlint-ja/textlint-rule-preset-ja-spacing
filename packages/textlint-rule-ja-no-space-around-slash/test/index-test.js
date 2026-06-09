@@ -68,6 +68,16 @@ tester.run("スラッシュ周りのスペース", rule, {
             ]
         },
         {
+            text: "struct          /          enum",
+            output: "struct/enum",
+            errors: [
+                {
+                    message: MESSAGE,
+                    column: 7
+                }
+            ]
+        },
+        {
             text: "struct　/enum",
             output: "struct/enum",
             errors: [
