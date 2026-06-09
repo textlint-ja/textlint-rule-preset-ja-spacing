@@ -147,7 +147,11 @@ jobs:
     name: Post PR Comment
     runs-on: ubuntu-latest
     needs: check-provenance
-    if: (needs.check-provenance.outputs.has_missing == 'true' || needs.check-provenance.outputs.has_unpublished == 'true') && github.event_name == 'pull_request'
+    # Skip on fork PRs: the GITHUB_TOKEN is read-only for forks, so commenting would fail with 403.
+    if: >
+      (needs.check-provenance.outputs.has_missing == 'true' || needs.check-provenance.outputs.has_unpublished == 'true')
+      && github.event_name == 'pull_request'
+      && github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       pull-requests: write
     steps:
