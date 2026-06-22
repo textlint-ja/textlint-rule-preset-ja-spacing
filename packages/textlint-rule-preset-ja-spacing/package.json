@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-preset-ja-spacing",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "textlint-rule-preset-ja-spacingのルールプリセット",
   "main": "lib/index.js",
   "files": [
@@ -32,16 +32,16 @@
     "textlint-scripts": "^13.3.3"
   },
   "dependencies": {
-    "textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana": "^3.0.0",
-    "textlint-rule-ja-no-space-around-parentheses": "^3.0.0",
-    "textlint-rule-ja-no-space-around-slash": "^3.0.0",
-    "textlint-rule-ja-no-space-between-full-width": "^3.0.0",
-    "textlint-rule-ja-space-after-exclamation": "^3.0.0",
-    "textlint-rule-ja-space-after-question": "^3.0.0",
-    "textlint-rule-ja-space-around-code": "^3.0.0",
-    "textlint-rule-ja-space-around-emphasis": "^3.0.0",
-    "textlint-rule-ja-space-around-link": "^3.0.0",
-    "textlint-rule-ja-space-around-strong": "^3.0.0",
-    "textlint-rule-ja-space-between-half-and-full-width": "^3.0.0"
+    "textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana": "^3.0.1",
+    "textlint-rule-ja-no-space-around-parentheses": "^3.0.1",
+    "textlint-rule-ja-no-space-around-slash": "^3.0.1",
+    "textlint-rule-ja-no-space-between-full-width": "^3.0.1",
+    "textlint-rule-ja-space-after-exclamation": "^3.0.1",
+    "textlint-rule-ja-space-after-question": "^3.0.1",
+    "textlint-rule-ja-space-around-code": "^3.0.1",
+    "textlint-rule-ja-space-around-emphasis": "^3.0.1",
+    "textlint-rule-ja-space-around-link": "^3.0.1",
+    "textlint-rule-ja-space-around-strong": "^3.0.1",
+    "textlint-rule-ja-space-between-half-and-full-width": "^3.0.1"
   }
 }
