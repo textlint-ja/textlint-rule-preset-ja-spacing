@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-no-space-around-slash",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "スラッシュ周りのスペースについてのtextlintルール",
   "main": "lib/index.js",
   "files": [
