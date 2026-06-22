@@ -24,10 +24,10 @@ function reporter(context) {
             const matchReg = rx`${japaneseRegExp}( )${japaneseRegExp}`;
             const katakakana = /[ァ-ヶ]( )[ァ-ヶ]/;
             for (const match of text.matchAll(matchReg)) {
-                const input = match[0];
+                const input = match[1];
                 // ただしカタカナ複合語の場合を除きます。
                 if (katakakana.test(input)) {
-                    continue;
+                    return;
                 }
                 const indexOneBased = match.index + 1;
                 report(
