@@ -56,6 +56,8 @@ textlint --rule ja-space-around-strong README.md
 }
 ```
 
+利用するpluginによっては、スペースを削除すると強い強調として解析されなくなる場合があります。
+
 ## Fixable
 
 [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
