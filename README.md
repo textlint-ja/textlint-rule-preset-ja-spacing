@@ -82,7 +82,7 @@ textlint --preset preset-ja-spacing README.md
 ### [textlint-rule-ja-space-around-emphasis](packages/textlint-rule-ja-space-around-emphasis)
 
 強調の周りをスペースで囲むかどうかを決めるルール。
-デフォルトでは、強調の周りをスペースで囲みません。
+このルールはデフォルトで無効です。
 
 ### [textlint-rule-ja-space-around-link](packages/textlint-rule-ja-space-around-link)
 
@@ -92,7 +92,7 @@ textlint --preset preset-ja-spacing README.md
 ### [textlint-rule-ja-space-around-strong](packages/textlint-rule-ja-space-around-strong)
 
 強い強調の周りをスペースで囲むかどうかを決めるルール。
-デフォルトでは、強い強調の周りをスペースで囲みません。
+このルールはデフォルトで無効です。
 
 ## デフォルト設定
 
@@ -112,9 +112,9 @@ textlint --preset preset-ja-spacing README.md
              "ja-space-after-exclamation": true,
              "ja-space-after-question": true,
              "ja-space-around-code": true,
-             "ja-space-around-emphasis": true,
+             "ja-space-around-emphasis": false,
              "ja-space-around-link": true,
-             "ja-space-around-strong": true
+             "ja-space-around-strong": false
          }
     }
 }
