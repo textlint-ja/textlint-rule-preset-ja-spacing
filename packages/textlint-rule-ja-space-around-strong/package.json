@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-ja-space-around-strong",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "強い強調の周りをスペースで囲むかどうかを決めるtextlintルール",
   "main": "lib/index.js",
   "files": [
