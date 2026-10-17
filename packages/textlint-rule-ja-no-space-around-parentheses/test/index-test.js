@@ -14,7 +14,13 @@ tester.run("かっこ類と隣接する文字の間のスペースの有無", ru
 というルールがあるだけとも言えます。
 `,
         "[テスト 「文章」 です](https://example)", // ignore Link
-        "[テスト 「文章」 です][]" + "\n\n" + "[テスト 「文章」 です]: https://example.com" // ignore ReferenceDef
+        "[テスト 「文章」 です][]" + "\n\n" + "[テスト 「文章」 です]: https://example.com", // ignore ReferenceDef
+        // ignore indentation of continuation lines
+        // https://github.com/textlint-ja/textlint-rule-preset-ja-spacing/issues/140
+        "- 箇条書きの文を\n  （括弧）で続ける。",
+        "1. 番号付きの文を\n   （括弧）で続ける。",
+        "- 親\n    - 入れ子の文を\n      （括弧）で続ける。",
+        "- 箇条書きの文を\n\t（括弧）で続ける。"
     ],
     invalid: [
         {
@@ -51,6 +57,28 @@ tester.run("かっこ類と隣接する文字の間のスペースの有無", ru
                     message: "かっこの外側、内側ともにスペースを入れません。",
                     line: 5,
                     column: 4
+                }
+            ]
+        },
+        {
+            text: "- 箇条書きの文を\n  続けて （括弧）です。",
+            output: "- 箇条書きの文を\n  続けて（括弧）です。",
+            errors: [
+                {
+                    message: "かっこの外側、内側ともにスペースを入れません。",
+                    line: 2,
+                    column: 6
+                }
+            ]
+        },
+        {
+            text: "- 箇条書きの文を\n  （括弧） で続ける。",
+            output: "- 箇条書きの文を\n  （括弧）で続ける。",
+            errors: [
+                {
+                    message: "かっこの外側、内側ともにスペースを入れません。",
+                    line: 2,
+                    column: 7
                 }
             ]
         }
