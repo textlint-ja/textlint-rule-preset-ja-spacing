@@ -86,7 +86,24 @@ jobs:
         run: yarn run build
 
       - name: Publish
-        run: yarn run ci:release
+        # `npm publish --provenance` intermittently fails with
+        # TLOG_CREATE_ENTRY_ERROR (409) from the Sigstore transparency log.
+        # https://github.com/npm/cli/issues/10078
+        # `lerna publish from-package` skips versions that are already on the registry,
+        # so retrying publishes only the packages that failed.
+        # Each attempt signs with a new ephemeral key, so the retry does not hit the same 409.
+        run: |
+          for attempt in 1 2 3; do
+            if yarn run ci:release; then
+              exit 0
+            fi
+            echo "::warning::lerna publish failed (attempt ${attempt}/3)"
+            if [ "${attempt}" -lt 3 ]; then
+              # wait for the registry to reflect the packages published in this attempt
+              sleep 30
+            fi
+          done
+          exit 1
         env:
           # OIDC trusted publishing + provenance for npm publishing
           # https://docs.npmjs.com/trusted-publishers
