@@ -17,7 +17,7 @@
     "versionup:minor": "lerna version minor --conventional-commits",
     "versionup:major": "lerna version major --conventional-commits",
     "release": "lerna publish from-package",
-    "ci:release": "lerna publish from-package --yes",
+    "ci:release": "lerna publish from-package --yes --concurrency 1",
     "ci:versionup:major": "lerna version major --no-push --no-git-tag-version --yes && yarn run commit-version",
     "ci:versionup:minor": "lerna version minor --no-push --no-git-tag-version --yes && yarn run commit-version",
     "ci:versionup:patch": "lerna version patch --no-push --no-git-tag-version --yes && yarn run commit-version",
