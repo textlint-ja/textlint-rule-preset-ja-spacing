@@ -42,6 +42,9 @@ textlint --rule ja-space-around-strong README.md
 - `after`: `boolean`
     - デフォルト: `false`
     - `true`なら、`Strong`の後に半角スペースを入れる
+- `cjkFriendlyEmphasis`: `boolean`
+    - デフォルト: `false`
+    - `true`なら、Markdownが[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)の仕様で解析される前提で、内側の端が約物でもスペースを削除する
 
 デフォルト値は次のようになります。
 
@@ -50,13 +53,65 @@ textlint --rule ja-space-around-strong README.md
     "rules": {
         "ja-space-around-strong": {
             "before": false,
-            "after": false
+            "after": false,
+            "cjkFriendlyEmphasis": false
         }
     }
 }
 ```
 
-利用するpluginによっては、スペースを削除すると強い強調として解析されなくなる場合があります。
+### 例外: スペースがあってもエラーにしない場合
+
+`before`や`after`が`false`のとき、このルールは強い強調の前後にあるスペースをエラーにして、`--fix`で削除します。
+ただし、スペースを削除すると強い強調として表示されなくなる場合は、エラーにせず、スペースを残します。
+削除すると、記号の`**`や`__`がそのまま文章に表示されてしまうためです。
+
+| 入力 | スペースを削除した場合 | CommonMark（GitHubなど）での表示 |
+| --- | --- | --- |
+| `日本語 __強い強調__ 日本語` | `日本語__強い強調__日本語` | `日本語__強い強調__日本語`（強い強調にならない） |
+| `**文章で:** 後半` | `**文章で:**後半` | `**文章で:**後半`（強い強調にならない） |
+
+- `__`で囲んだ強い強調: 前後が文字の`__`は、CommonMarkでも[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)でも強い強調になりません。そのため、`__`の場合は常にスペースを残します
+- 内側の端が約物の強い強調: `**文章で:**`のように、閉じる`**`の内側が約物（`:`）で外側が文字だと、CommonMarkとGFMでは強い強調になりません。`**「強い強調」**`の`「`と`」`も同じです。markdown-cjk-friendlyでは強い強調になるので、`cjkFriendlyEmphasis`が`true`ならスペースを削除します
+
+### `cjkFriendlyEmphasis`の例
+
+`before`と`after`が`false`のとき、`前半 **「強調」** 後半`は次のように扱われます。
+
+| `cjkFriendlyEmphasis` | 結果 | 理由 |
+| --- | --- | --- |
+| `false`（デフォルト） | エラーにしない（スペースを残す） | CommonMarkとGFMでは、`前半**「強調」**後半`は強い強調にならず、`**`がそのまま表示されるため |
+| `true` | エラーにして、`前半**「強調」**後半`に修正する | markdown-cjk-friendlyでは、`前半**「強調」**後半`も強い強調になるため |
+
+それぞれの仕様で`前半**「強調」**後半`を表示すると、次のHTMLになります。
+
+- CommonMark（GitHubなど）: `<p>前半**「強調」**後半</p>`
+- markdown-cjk-friendly（VitePressやRspressなど）: `<p>前半<strong>「強調」</strong>後半</p>`
+
+### textlintのMarkdownプラグインの設定
+
+textlintのMarkdownプラグイン（`@textlint/textlint-plugin-markdown`）には、textlint 16から、Markdownをmarkdown-cjk-friendlyの仕様で解析する`cjkFriendlyEmphasis`オプションがあります。
+Markdownプラグインのオプションは、ルールには伝わりません。
+VitePressやRspressのように、markdown-cjk-friendlyで表示する文書では、Markdownプラグインとこのルールの両方で`cjkFriendlyEmphasis`を`true`にしてください。
+
+```json
+{
+    "plugins": {
+        "@textlint/markdown": {
+            "cjkFriendlyEmphasis": true
+        }
+    },
+    "rules": {
+        "ja-space-around-strong": {
+            "cjkFriendlyEmphasis": true
+        }
+    }
+}
+```
+
+`textlint-rule-preset-ja-spacing`から使う場合は、`"preset-ja-spacing": { "ja-space-around-strong": { "cjkFriendlyEmphasis": true } }`のように指定します。presetではこのルールはデフォルトで無効なので、オブジェクトでオプションを指定すると有効になります。
+
+GitHubのようにCommonMarkやGFMで表示する文書では、どちらも`false`のままにしてください。
 
 ## Fixable
 

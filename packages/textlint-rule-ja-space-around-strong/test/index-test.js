@@ -5,6 +5,37 @@ import rule from "../src/index";
 var tester = new TextLintTester();
 tester.run("Strong周りのスペース", rule, {
     valid: [
+        // `_`は前後が文字だと、markdown-cjk-friendlyでも強調にならないので、スペースを削除しない
+        {
+            text: "これは __strong__ おかしい",
+            options: {
+                before: false,
+                after: false,
+                cjkFriendlyEmphasis: true
+            }
+        },
+        // CommonMarkでは、内側の端が約物で外側が文字だと強調にならないので、スペースを削除しない
+        {
+            text: "**文章で:** 後半",
+            options: {
+                before: false,
+                after: false
+            }
+        },
+        {
+            text: "**文章で。** 後半",
+            options: {
+                before: false,
+                after: false
+            }
+        },
+        {
+            text: "前半 **「強調」** 後半",
+            options: {
+                before: false,
+                after: false
+            }
+        },
         {
             text: "**strong** と日本語の間はスペースを空ける",
             options: {
@@ -28,6 +59,38 @@ tester.run("Strong周りのスペース", rule, {
         }
     ],
     invalid: [
+        // markdown-cjk-friendlyでは、内側の端が約物でも強調になるので、スペースを削除する
+        {
+            text: "前半 **「強調」** 後半",
+            output: "前半**「強調」**後半",
+            options: {
+                before: false,
+                after: false,
+                cjkFriendlyEmphasis: true
+            },
+            errors: [
+                {
+                    message: "強い強調の前にスペースを入れません。"
+                },
+                {
+                    message: "強い強調の後にスペースを入れません。"
+                }
+            ]
+        },
+        // 内側の端が約物でない側だけスペースを削除する
+        {
+            text: "これは **文章で:** 後半",
+            output: "これは**文章で:** 後半",
+            options: {
+                before: false,
+                after: false
+            },
+            errors: [
+                {
+                    message: "強い強調の前にスペースを入れません。"
+                }
+            ]
+        },
         {
             text: "これは **strong** おかしい",
             output: "これは **strong**おかしい",
