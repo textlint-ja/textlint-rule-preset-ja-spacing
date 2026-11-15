@@ -42,6 +42,9 @@ textlint --rule ja-space-around-emphasis README.md
 - `after`: `boolean`
     - デフォルト: `false`
     - `true`なら、`Emphasis`の後に半角スペースを入れる
+- `cjkFriendly`: `boolean`
+    - デフォルト: `false`
+    - `true`なら、Markdownが[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)の仕様で解析される前提で、スペースを削除する
 
 デフォルト値は次のようになります。
 
@@ -50,13 +53,21 @@ textlint --rule ja-space-around-emphasis README.md
     "rules": {
         "ja-space-around-emphasis": {
             "before": false,
-            "after": false
+            "after": false,
+            "cjkFriendly": false
         }
     }
 }
 ```
 
-利用するpluginによっては、スペースを削除すると強調として解析されなくなる場合があります。
+### スペースを削除しない場合
+
+`before`または`after`が`false`でも、スペースを削除すると強調として解析されなくなる場合は、スペースを削除しません。
+
+- `_`で囲んだ強調（例: `日本語 _強調_ 日本語`）: 前後が文字の`_`は、CommonMarkでも[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)でも強調になりません
+- `cjkFriendly`が`false`のとき、強調の内側の端が約物（例: `*文章で:* 後半`の`:`や、`*「強調」*`の`「`と`」`）の側: CommonMarkとGFMでは、内側の端が約物で外側が文字だと強調になりません
+
+GitHubのようにCommonMarkやGFMで表示する文書では、`cjkFriendly`を`false`のままにしてください。
 
 ## Fixable
 
