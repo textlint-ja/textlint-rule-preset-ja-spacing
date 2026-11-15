@@ -2,6 +2,7 @@
 "use strict";
 import TextLintTester from "textlint-tester";
 import rule from "../src/index";
+import markdownPlugin from "@textlint/textlint-plugin-markdown";
 var tester = new TextLintTester();
 tester.run("Emphasis周りのスペース", rule, {
     valid: [
@@ -27,15 +28,6 @@ tester.run("Emphasis周りのスペース", rule, {
                 after: false
             }
         },
-        // `_`は前後が文字だと強調にならないので、スペースを削除しない
-        {
-            text: "これは _strong_ おかしい",
-            options: {
-                before: false,
-                after: false,
-                cjkFriendly: true
-            }
-        },
         {
             text: "*emphasis* と日本語の間はスペースを空ける",
             options: {
@@ -59,24 +51,6 @@ tester.run("Emphasis周りのスペース", rule, {
         }
     ],
     invalid: [
-        // markdown-cjk-friendlyでは、内側の端が約物でも強調になるので、スペースを削除する
-        {
-            text: "前半 *「強調」* 後半",
-            output: "前半*「強調」*後半",
-            options: {
-                before: false,
-                after: false,
-                cjkFriendly: true
-            },
-            errors: [
-                {
-                    message: "強調の前にスペースを入れません。"
-                },
-                {
-                    message: "強調の後にスペースを入れません。"
-                }
-            ]
-        },
         // 内側の端が約物でない側だけスペースを削除する
         {
             text: "これは *文章で:* 後半",
@@ -157,3 +131,54 @@ tester.run("Emphasis周りのスペース", rule, {
         }
     ]
 });
+
+// プラグインがmarkdown-cjk-friendlyの仕様で解析したときは、Documentに`syntaxExtensions`を記録する
+// 組み込みのMarkdownプラグインと区別するため、独自の拡張子を使う
+class CJKFriendlyMarkdownProcessor extends markdownPlugin.Processor {
+    availableExtensions() {
+        return [".cjk-md"];
+    }
+    processor(extension) {
+        const { preProcess, postProcess } = super.processor(extension);
+        return {
+            preProcess(text, filePath) {
+                const ast = preProcess(text, filePath);
+                ast.syntaxExtensions = { cjkFriendlyEmphasis: true };
+                return ast;
+            },
+            postProcess
+        };
+    }
+}
+tester.run(
+    "Emphasis周りのスペース（cjkFriendlyEmphasis）",
+    {
+        plugins: [{ pluginId: "markdown", plugin: { Processor: CJKFriendlyMarkdownProcessor } }],
+        rules: [{ ruleId: "ja-space-around-emphasis", rule }]
+    },
+    {
+        valid: [
+            // `_`は前後が文字だと、markdown-cjk-friendlyでも強調にならないので、スペースを削除しない
+            {
+                text: "これは _strong_ おかしい",
+                ext: ".cjk-md"
+            }
+        ],
+        invalid: [
+            // markdown-cjk-friendlyでは、内側の端が約物でも強調になるので、スペースを削除する
+            {
+                text: "前半 *「強調」* 後半",
+                output: "前半*「強調」*後半",
+                ext: ".cjk-md",
+                errors: [
+                    {
+                        message: "強調の前にスペースを入れません。"
+                    },
+                    {
+                        message: "強調の後にスペースを入れません。"
+                    }
+                ]
+            }
+        ]
+    }
+);

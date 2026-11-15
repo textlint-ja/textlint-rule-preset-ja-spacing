@@ -10,8 +10,7 @@ const isPunctuationChar = (text) => {
 };
 const defaultOptions = {
     before: false,
-    after: false,
-    cjkFriendly: false
+    after: false
 };
 const countDelimiter = (nodeText) => {
     const delimiter = nodeText[0];
@@ -25,8 +24,13 @@ function reporter(context, options = {}) {
     const { Syntax, RuleError, report, fixer, getSource } = context;
     const allowBeforeSpace = options.before || defaultOptions.before;
     const allowAfterSpace = options.after || defaultOptions.after;
-    const cjkFriendly = options.cjkFriendly || defaultOptions.cjkFriendly;
+    // Markdownがmarkdown-cjk-friendlyの仕様で解析されたか
+    // プラグインがDocumentの`syntaxExtensions`に記録する
+    let cjkFriendlyEmphasis = false;
     return {
+        [Syntax.Document](node) {
+            cjkFriendlyEmphasis = node.syntaxExtensions?.cjkFriendlyEmphasis === true;
+        },
         [Syntax.Strong](node) {
             const nodeText = getSource(node);
             // 区切り記号の長さ（`*`または`_`の数）
@@ -36,10 +40,10 @@ function reporter(context, options = {}) {
             // `*`は、CommonMarkでは強調の内側の端が約物で外側が文字だと強調にならない。
             // markdown-cjk-friendlyではこの場合も強調になる
             const canRemoveBeforeSpace =
-                nodeText[0] !== "_" && (cjkFriendly || !isPunctuationChar(nodeText[delimiterLength]));
+                nodeText[0] !== "_" && (cjkFriendlyEmphasis || !isPunctuationChar(nodeText[delimiterLength]));
             const canRemoveAfterSpace =
                 nodeText[0] !== "_" &&
-                (cjkFriendly || !isPunctuationChar(nodeText[nodeText.length - 1 - delimiterLength]));
+                (cjkFriendlyEmphasis || !isPunctuationChar(nodeText[nodeText.length - 1 - delimiterLength]));
             // Strongの前後2文字文を取得
             // スペース + 前後の文字を取るため
             // 文字が日本語以外はチェック対象にしないようにするため
