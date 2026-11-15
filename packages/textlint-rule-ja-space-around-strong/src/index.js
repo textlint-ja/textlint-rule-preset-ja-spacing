@@ -10,7 +10,8 @@ const isPunctuationChar = (text) => {
 };
 const defaultOptions = {
     before: false,
-    after: false
+    after: false,
+    cjkFriendlyEmphasis: false
 };
 const countDelimiter = (nodeText) => {
     const delimiter = nodeText[0];
@@ -24,13 +25,9 @@ function reporter(context, options = {}) {
     const { Syntax, RuleError, report, fixer, getSource } = context;
     const allowBeforeSpace = options.before || defaultOptions.before;
     const allowAfterSpace = options.after || defaultOptions.after;
-    // Markdownがmarkdown-cjk-friendlyの仕様で解析されたか
-    // プラグインがDocumentの`syntaxExtensions`に記録する
-    let cjkFriendlyEmphasis = false;
+    // Markdownがmarkdown-cjk-friendlyの仕様で解析されるか
+    const cjkFriendlyEmphasis = options.cjkFriendlyEmphasis || defaultOptions.cjkFriendlyEmphasis;
     return {
-        [Syntax.Document](node) {
-            cjkFriendlyEmphasis = node.syntaxExtensions?.cjkFriendlyEmphasis === true;
-        },
         [Syntax.Strong](node) {
             const nodeText = getSource(node);
             // 区切り記号の長さ（`*`または`_`の数）

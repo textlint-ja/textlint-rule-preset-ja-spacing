@@ -42,6 +42,9 @@ textlint --rule ja-space-around-emphasis README.md
 - `after`: `boolean`
     - デフォルト: `false`
     - `true`なら、`Emphasis`の後に半角スペースを入れる
+- `cjkFriendlyEmphasis`: `boolean`
+    - デフォルト: `false`
+    - `true`なら、Markdownが[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)の仕様で解析される前提で、内側の端が約物でもスペースを削除する
 
 デフォルト値は次のようになります。
 
@@ -50,7 +53,8 @@ textlint --rule ja-space-around-emphasis README.md
     "rules": {
         "ja-space-around-emphasis": {
             "before": false,
-            "after": false
+            "after": false,
+            "cjkFriendlyEmphasis": false
         }
     }
 }
@@ -61,10 +65,10 @@ textlint --rule ja-space-around-emphasis README.md
 `before`または`after`が`false`でも、スペースを削除すると強調として解析されなくなる場合は、スペースを削除しません。
 
 - `_`で囲んだ強調（例: `日本語 _強調_ 日本語`）: 前後が文字の`_`は、CommonMarkでも[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)でも強調になりません
-- Markdownが[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)の仕様で解析されていないとき、強調の内側の端が約物（例: `*文章で:* 後半`の`:`や、`*「強調」*`の`「`と`」`）の側: CommonMarkとGFMでは、内側の端が約物で外側が文字だと強調になりません
+- `cjkFriendlyEmphasis`が`false`のとき、強調の内側の端が約物（例: `*文章で:* 後半`の`:`や、`*「強調」*`の`「`と`」`）の側: CommonMarkとGFMでは、内側の端が約物で外側が文字だと強調になりません
 
-Markdownプラグインが`Document`ノードの`syntaxExtensions.cjkFriendlyEmphasis`を`true`にしたときは、markdown-cjk-friendlyの仕様で解析されたとみなし、内側の端が約物でもスペースを削除します。
-VitePressやRspressのように、markdown-cjk-friendlyで表示する文書向けです。
+VitePressやRspressのように、markdown-cjk-friendlyで表示する文書では、Markdownプラグインの`cjkFriendlyEmphasis`オプションと一緒に、このルールの`cjkFriendlyEmphasis`も`true`にしてください。
+GitHubのようにCommonMarkやGFMで表示する文書では、`false`のままにしてください。
 
 ## Fixable
 
