@@ -60,12 +60,19 @@ textlint --rule ja-space-around-strong README.md
 }
 ```
 
-### スペースを削除しない場合
+### 例外: スペースがあってもエラーにしない場合
 
-`before`または`after`が`false`でも、スペースを削除すると強い強調として解析されなくなる場合は、スペースを削除しません。
+`before`や`after`が`false`のとき、このルールは強い強調の前後にあるスペースをエラーにして、`--fix`で削除します。
+ただし、スペースを削除すると強い強調として表示されなくなる場合は、エラーにせず、スペースを残します。
+削除すると、記号の`**`や`__`がそのまま文章に表示されてしまうためです。
 
-- `_`で囲んだ強い強調（例: `日本語 __強い強調__ 日本語`）: 前後が文字の`_`は、CommonMarkでも[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)でも強い強調になりません
-- `cjkFriendlyEmphasis`が`false`のとき、強い強調の内側の端が約物（例: `**文章で:** 後半`の`:`や、`**「強い強調」**`の`「`と`」`）の側: CommonMarkとGFMでは、内側の端が約物で外側が文字だと強い強調になりません
+| 入力 | スペースを削除した場合 | CommonMark（GitHubなど）での表示 |
+| --- | --- | --- |
+| `日本語 __強い強調__ 日本語` | `日本語__強い強調__日本語` | `日本語__強い強調__日本語`（強い強調にならない） |
+| `**文章で:** 後半` | `**文章で:**後半` | `**文章で:**後半`（強い強調にならない） |
+
+- `__`で囲んだ強い強調: 前後が文字の`__`は、CommonMarkでも[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)でも強い強調になりません。そのため、`__`の場合は常にスペースを残します
+- 内側の端が約物の強い強調: `**文章で:**`のように、閉じる`**`の内側が約物（`:`）で外側が文字だと、CommonMarkとGFMでは強い強調になりません。`**「強い強調」**`の`「`と`」`も同じです。markdown-cjk-friendlyでは強い強調になるので、`cjkFriendlyEmphasis`が`true`ならスペースを削除します
 
 ### `cjkFriendlyEmphasis`の例
 
@@ -81,9 +88,9 @@ textlint --rule ja-space-around-strong README.md
 - CommonMark（GitHubなど）: `<p>前半**「強調」**後半</p>`
 - markdown-cjk-friendly（VitePressやRspressなど）: `<p>前半<strong>「強調」</strong>後半</p>`
 
-### textlint 16での設定
+### textlintのMarkdownプラグインの設定
 
-textlint 16以降の`@textlint/textlint-plugin-markdown`には、Markdownをmarkdown-cjk-friendlyの仕様で解析する`cjkFriendlyEmphasis`オプションがあります。
+textlintのMarkdownプラグイン（`@textlint/textlint-plugin-markdown`）には、textlint 16から、Markdownをmarkdown-cjk-friendlyの仕様で解析する`cjkFriendlyEmphasis`オプションがあります。
 Markdownプラグインのオプションは、ルールには伝わりません。
 VitePressやRspressのように、markdown-cjk-friendlyで表示する文書では、Markdownプラグインとこのルールの両方で`cjkFriendlyEmphasis`を`true`にしてください。
 
