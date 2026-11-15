@@ -67,8 +67,44 @@ textlint --rule ja-space-around-strong README.md
 - `_`で囲んだ強い強調（例: `日本語 __強い強調__ 日本語`）: 前後が文字の`_`は、CommonMarkでも[markdown-cjk-friendly](https://github.com/tats-u/markdown-cjk-friendly)でも強い強調になりません
 - `cjkFriendlyEmphasis`が`false`のとき、強い強調の内側の端が約物（例: `**文章で:** 後半`の`:`や、`**「強い強調」**`の`「`と`」`）の側: CommonMarkとGFMでは、内側の端が約物で外側が文字だと強い強調になりません
 
-VitePressやRspressのように、markdown-cjk-friendlyで表示する文書では、Markdownプラグインの`cjkFriendlyEmphasis`オプションと一緒に、このルールの`cjkFriendlyEmphasis`も`true`にしてください。
-GitHubのようにCommonMarkやGFMで表示する文書では、`false`のままにしてください。
+### `cjkFriendlyEmphasis`の例
+
+`before`と`after`が`false`のとき、`前半 **「強調」** 後半`は次のように扱われます。
+
+| `cjkFriendlyEmphasis` | 結果 | 理由 |
+| --- | --- | --- |
+| `false`（デフォルト） | エラーにしない（スペースを残す） | CommonMarkとGFMでは、`前半**「強調」**後半`は強い強調にならず、`**`がそのまま表示されるため |
+| `true` | エラーにして、`前半**「強調」**後半`に修正する | markdown-cjk-friendlyでは、`前半**「強調」**後半`も強い強調になるため |
+
+それぞれの仕様で`前半**「強調」**後半`を表示すると、次のHTMLになります。
+
+- CommonMark（GitHubなど）: `<p>前半**「強調」**後半</p>`
+- markdown-cjk-friendly（VitePressやRspressなど）: `<p>前半<strong>「強調」</strong>後半</p>`
+
+### textlint 16での設定
+
+textlint 16以降の`@textlint/textlint-plugin-markdown`には、Markdownをmarkdown-cjk-friendlyの仕様で解析する`cjkFriendlyEmphasis`オプションがあります。
+Markdownプラグインのオプションは、ルールには伝わりません。
+VitePressやRspressのように、markdown-cjk-friendlyで表示する文書では、Markdownプラグインとこのルールの両方で`cjkFriendlyEmphasis`を`true`にしてください。
+
+```json
+{
+    "plugins": {
+        "@textlint/markdown": {
+            "cjkFriendlyEmphasis": true
+        }
+    },
+    "rules": {
+        "ja-space-around-strong": {
+            "cjkFriendlyEmphasis": true
+        }
+    }
+}
+```
+
+`textlint-rule-preset-ja-spacing`から使う場合は、`"preset-ja-spacing": { "ja-space-around-strong": { "cjkFriendlyEmphasis": true } }`のように指定します。presetではこのルールはデフォルトで無効なので、オブジェクトでオプションを指定すると有効になります。
+
+GitHubのようにCommonMarkやGFMで表示する文書では、どちらも`false`のままにしてください。
 
 ## Fixable
 
